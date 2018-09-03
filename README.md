@@ -12,7 +12,7 @@ Linux, Mac OS X
 ### Prerequisite
 * Samtools (http://www.htslib.org/)
 * Bedtools (https://bedtools.readthedocs.io/en/latest/)
-* STAR or bowtie aligner
+* STAR or bowtie aligner (https://github.com/alexdobin/STAR/releases or http://bowtie-bio.sourceforge.net/index.shtml)
 * dREG (https://github.com/Danko-Lab/dREG)
 
 ## Flowchart
