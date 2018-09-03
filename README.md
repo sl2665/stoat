@@ -15,9 +15,10 @@ Linux, Mac OS X
 * STAR or bowtie aligner
 * dREG (https://github.com/Danko-Lab/dREG)
 
-## Usage
+## Flowchart
 
-### Work flowchart
+
+## Usage
 
 ### proseq-align
 ### proseq-makedREG
