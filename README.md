@@ -13,3 +13,9 @@ Linux, Mac OS X
 * Samtools
 * Bedtools
 * STAR or bowtie aligner
+
+## Usage
+
+## Documentation
+
+## How to cite
