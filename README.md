@@ -3,3 +3,10 @@
 <img src="stoat.png" alt="drawing" width="100" align="left"/>
 
 
+## Installation
+### Supported OS
+Linux, Mac OS X
+### Prerequisite
+* Samtools
+* Bedtools
+* STAR or bowtie aligner
