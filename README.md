@@ -13,7 +13,7 @@ Linux, Mac OS X
 * Samtools
 * Bedtools
 * STAR or bowtie aligner
-* dREG
+* dREG (https://github.com/Danko-Lab/dREG)
 
 ## Usage
 
