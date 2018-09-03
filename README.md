@@ -33,4 +33,4 @@ Linux, Mac OS X
 ## Documentation
 
 ## How to cite
-Lee S.H., Woo Y.M., Kwak H. (2018). Stereoptic Transcriptome Analysis Refines Functional Gene Annotation and Identifies Polyadenylation of Atypical Transcripts.
+Lee S.H., Woo Y.M., Kwak H. (2018). Stereoptic transcriptome analysis refines functional gene annotation and identifies polyadenylation of atypical transcripts.
