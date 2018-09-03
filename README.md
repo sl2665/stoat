@@ -13,8 +13,22 @@ Linux, Mac OS X
 * Samtools
 * Bedtools
 * STAR or bowtie aligner
+* dREG
 
 ## Usage
+
+### Work flowchart
+
+### proseq-align
+### proseq-makedREG
+### proseq-HMM
+### proseq-getexpr
+### tedseq-align
+### tedseq-find3cps
+### tedseq-makepal
+### tedseq-getexpr
+### stoat-getannot
+### stoat-getdge
 
 ## Documentation
 
