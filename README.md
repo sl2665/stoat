@@ -10,8 +10,8 @@ Stereoptic analysis that adds dynamics-perception using binocular perspectives o
 Linux, Mac OS X
 
 ### Prerequisite
-* Samtools
-* Bedtools
+* Samtools (http://www.htslib.org/)
+* Bedtools (https://bedtools.readthedocs.io/en/latest/)
 * STAR or bowtie aligner
 * dREG (https://github.com/Danko-Lab/dREG)
 
