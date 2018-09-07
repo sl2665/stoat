@@ -21,15 +21,27 @@ Linux, Mac OS X
 ## Usage
 
 ### proseq-align
+
 ### proseq-makedREG
+
 ### proseq-HMM
+
 ### proseq-getexpr
+
 ### tedseq-align
+
 ### tedseq-find3cps
+
 ### tedseq-makepal
+Usage:   tedseq-makepal [options] -a <bam> -b <bed>
+Options:
+        -bin    bin size (default=1)
+        -win    window size (default=500)
 ### tedseq-getexpr
+
 ### stoat-getannot
 ### stoat-getdge
+
 
 ## Documentation
 
