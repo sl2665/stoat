@@ -1,7 +1,7 @@
 # stoat
 **St**ere**o**ptic **a**nalysis of the **t**ranscriptome using PRO-seq and TED-seq
 
-## Summary <img src="bin/stoat.png" alt="drawing" width="100" align="left"/>
+## Summary <img src="img/stoat.png" alt="drawing" width="100" align="left"/>
 Stereoptic transcriptome analysis that adds dynamics-perception using binocular perspectives of the static transcriptome; transcription rate and polyadenylation status. Transcription rate, measured by nascent RNA sequencing (PRO-seq), reflects the RNA synthesis level. Poly(A) tail length (PAL), measured by TED-seq, reflects the quality of the RNA, and is associated with translation and decay status. The starts and the ends of transcripts can be mapped using PRO-seq and TED-seq to re-define high-confidence annotation including novel transcripts. Transcriptional and post-transcriptional expression analysis identifies dynamically regulated transcripts.
 
 ## Installation
@@ -16,7 +16,7 @@ Linux, Mac OS X
 * dREG (https://github.com/Danko-Lab/dREG)
 
 ## Flowchart
-<img src="bin/STOAT-FLOWCHART.png" alt="drawing" width="400" align="left"/>
+<img src="img/STOAT-FLOWCHART.png" alt="drawing" width="400" align="left"/>
 
 ## Usage
 
