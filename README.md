@@ -16,7 +16,7 @@ Linux, Mac OS X
 * dREG (https://github.com/Danko-Lab/dREG)
 
 ## Flowchart
-<img src="img/STOAT-FLOWCHART.png" alt="drawing" width="400" align="left"/>
+<img src="img/STOAT-FLOWCHART.png" alt="drawing" width="800" />
 
 ## Usage
 
