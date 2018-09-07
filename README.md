@@ -34,6 +34,7 @@ Linux, Mac OS X
 
 ### tedseq-makepal
 Usage:  tedseq-makepal [options] -a \<bam\> -b \<bed\>
+
 Options:
         -bin    bin size (default=1)
         -win    window size (default=500)
