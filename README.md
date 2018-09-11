@@ -21,7 +21,12 @@ Linux, Mac OS X
 ## Usage
 
 ### proseq-align
-
+```
+Usage:   proseq-align [options] -f <fastq> -r <reference genome>
+Options:
+        -a      alinger (STAR/BOWTIE; default = STAR)
+        -b      output filename base (default = proseq.out)
+```
 ### proseq-makedREG
 
 ### proseq-HMM
