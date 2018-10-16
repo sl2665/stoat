@@ -26,17 +26,18 @@ Usage:   proseq-align [options] -f <fastq> -r <reference genome>
 Options:
         -a      alinger (STAR/BOWTIE; default = STAR)
         -b      output filename base (default = proseq.out)
+```
 Output:  [output filename base].bam
          [output filename base].pl.bedgraph 
          [output filename base].mn.bedgraph
-```
+         
 ### proseq-makedREG
 ```
 Usage:   proseq-makedREG [options] -p <PRO-seq plus bedgraphf> -m <PRO-seq minus bedgraph>
 Options:
         -r      dREG options
-Output:  [output filename base].txt
 ```
+Output:  [output filename base].bed
 ### proseq-HMM
 ```
 ```
