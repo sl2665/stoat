@@ -32,6 +32,10 @@ Output:  [output filename base].bam
 ```
 ### proseq-makedREG
 ```
+Usage:   proseq-makedREG [options] -p <PRO-seq plus bedgraphf> -m <PRO-seq minus bedgraph>
+Options:
+        -r      dREG options
+Output:  [output filename base].txt
 ```
 ### proseq-HMM
 ```
