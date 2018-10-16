@@ -26,7 +26,9 @@ Usage:   proseq-align [options] -f <fastq> -r <reference genome>
 Options:
         -a      alinger (STAR/BOWTIE; default = STAR)
         -b      output filename base (default = proseq.out)
-Output:   
+Output:  [output filename base].bam
+         [output filename base].pl.bedgraph 
+         [output filename base].mn.bedgraph
 ```
 ### proseq-makedREG
 ```
