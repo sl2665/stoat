@@ -64,7 +64,7 @@ for f in _bam.*S.tmp; do
 done
 
 # Generate last 500 bp bed file with 1 base extension of the blocks
-~/Work/shared/script/bed12toend3.sh $BED 500 | sort -k1,1 -k2,2n | \
+${SCRIPTDIR}bed12toend3 $BED 500 | sort -k1,1 -k2,2n | \
 awk '{split($11,exonSizes,",");split($12,exonStarts,",");exonCount=$10;A="";B="";
 	if($6=="+") {
 		for(i=exonCount;i>1;--i) {
@@ -85,10 +85,10 @@ awk '{split($11,exonSizes,",");split($12,exonStarts,",");exonCount=$10;A="";B=""
 for f in _bg.pl.*S.tmp; do
 	outsuf=${f#_bg.pl.*}
 	if [ -s _bg.pl.$outsuf ] && [ -s _bed.500.pl.tmp ]; then
-		~/Work/shared/script/bgmatrix.sh -a _bed.500.pl.tmp -b _bg.pl.$outsuf -split -bin 1 > _mat.pl.$outsuf 
+		${SCRIPTDIR}bgmatrix -a _bed.500.pl.tmp -b _bg.pl.$outsuf -split -bin 1 > _mat.pl.$outsuf 
 	fi
 	if [ -s _bg.mn.$outsuf ] && [ -s _bed.500.mn.tmp ]; then
-		~/Work/shared/script/bgmatrix.sh -a _bed.500.mn.tmp -b _bg.mn.$outsuf -split -bin 1 > _mat.mn.$outsuf 
+		${SCRIPTDIR}bgmatrix -a _bed.500.mn.tmp -b _bg.mn.$outsuf -split -bin 1 > _mat.mn.$outsuf 
 	fi
 done
 
