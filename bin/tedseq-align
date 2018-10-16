@@ -1,5 +1,5 @@
 #!/bin/bash
-# Align PRO-seq to make bam and bedgraph files
+# Align TED-seq to make bam and bedgraph files
 
 if [ $# -lt 2 ]; then
 	echo -e "Usage:\t proseq-align [options] -f <fastq> -r <reference genome>"
