@@ -4,32 +4,32 @@
 if [ $# -lt 2 ]; then
 	echo -e "Usage:\t proseq-align [options] -f <fastq> -r <reference genome>"
 	echo -e "Options:"
-	echo -e "\t-a\talinger (STAR/BOWTIE; default = STAR)"
+	echo -e "\t-a\taligner (STAR/BOWTIE; default = STAR)"
 	echo -e "\t-b\toutput filename base (default = proseq.out)"
 	exit
 fi
 
-SCRIPTDIR="~/Work/shared/script/"
-ALINGER=star
+SCRIPTDIR="~/Work/labuser/sl2665/stoat/bin"
+ALIGNER="STAR"
 BASE="proseq.out"
 
 while [[ $# -ge 1 ]]; do
 	key="$1"
 	case $key in
+		-f)
+		FASTQ="$2"
+		shift
+		;;
+		-r)
+		REF="$2"
+		shift
+		;;
 		-a)
-		BAM="$2"
+		ALINGER="$2"
 		shift
 		;;
 		-b)
-		BED="$2"
-		shift
-		;;
-		-bin)
-		BIN="$2"
-		shift
-		;;
-		-win)
-		WIN="$2"
+		BASE="$2"
 		shift
 		;;
 		--default)
@@ -41,9 +41,10 @@ while [[ $# -ge 1 ]]; do
 done
 
 # Cut out adapter sequences if any
-cutadapt -a TGGAATTCTCGGGTGCCAAGG $1 > "${1%.*}".trim.fastq 
+cutadapt -a TGGAATTCTCGGGTGCCAAGG ${FASTQ} > "${FASTQ%.*}".trim.fastq 
+
 # Tagging UMI to the sequence ID
-~/Work/shared/script/umi-split-fastq.sh "${1%.*}".trim.fastq
+${SCRIPTDIR}/umi-split-fastq.sh "${1%.*}".trim.fastq
 
 # Alignemnt to the reference genome
 ~/Work/bin/star --genomeDir ~/Work/shared/ref/hg38 --readFilesIn "${1%.*}".trim.UMItag.fastq --outFilterMultimapNmax 1 --runThreadN 8
