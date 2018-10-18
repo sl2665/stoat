@@ -28,9 +28,9 @@ Options:
         -b      output filename base (default = proseq.out)
 ```
 Output:
-  * (output filename base).bam : aligned bam file with unique molecular identifiers collapsed
-  * (output filename base).pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
-  * (output filename base).mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
+  * <output filename base>.bam : aligned bam file with unique molecular identifiers collapsed
+  * <output filename base>.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
+  * <output filename base>.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
          
 ### proseq-makedREG
 ```
@@ -45,14 +45,17 @@ Usage:  proseq-HMM      [options] -p <PRO-seq plus bedgraph> -m <PRO-seq minus b
 Options:
         -r      ChromHMM options 
 ```
-Output: [TAR].bed 
+Output: [TAR].bed
+
 ### proseq-getexpr
 ```
-Usage:  proseq-makedREG [options] -p <PRO-seq plus bedgraph> -m <PRO-seq minus bedgraph>
+Usage:  proseq-getexpr [options] -p <PRO-seq plus bedgraph> -m <PRO-seq minus bedgraph> -b <gene annotation bed>
 Options: 
         -r      Hg19 Promoters Options
 ```
-Output: [Transcript activity].bed 
+Output:
+1. 
+
 ### tedseq-align
 ```
 Usage:   tedseq-align [options] -f <fastq> -r <reference genome>
@@ -81,6 +84,7 @@ Output:[tedseq.3CPS].bed
         -win    window size (default = 500)
 ```
 Output:[palmatrix.3CPS].bed
+
 ### tedseq-getexpr
 ```
         Usage:  TEDseq.bam [options] -p <TED-seq plus bedgraph> -m <TED-seq minus bedgraph>
@@ -88,6 +92,7 @@ Output:[palmatrix.3CPS].bed
                 -r      Hg19 Promoters Options
 ```
 Output: [tedseq.expressed].bed
+
 ### stoat-getannot
 ```
         Usage:  tedseq.3CPS.bed[options] -r <reference genome>
