@@ -41,6 +41,9 @@ Options:
 Output:  [output filename base].bed
 ### proseq-HMM
 ```
+Usage:  proseq-HMM      [options] -p <PRO-seq plus bedgraph> -m <PRO-seq minus bedgraph>
+Options:
+        -r
 ```
 ### proseq-getexpr
 ```
