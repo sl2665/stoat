@@ -10,8 +10,9 @@ Stereoptic transcriptome analysis that adds dynamics-perception using binocular 
 Linux, Mac OS X
 
 ### Prerequisite
-* Samtools (http://www.htslib.org/)
-* Bedtools (https://bedtools.readthedocs.io/en/latest/)
+* samtools (http://www.htslib.org/)
+* bedtools (https://bedtools.readthedocs.io/en/latest/)
+* cutadapt (https://cutadapt.readthedocs.io/en/stable/)
 * STAR or bowtie aligner (https://github.com/alexdobin/STAR/releases or http://bowtie-bio.sourceforge.net/index.shtml)
 * dREG (https://github.com/Danko-Lab/dREG)
 
