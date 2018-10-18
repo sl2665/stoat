@@ -67,28 +67,29 @@ Output:
 ```
 ### tedseq-find3cps
 ```
-Usage: tedseq-find3cps [options] -p <TED-seq plus bedgraph> -m <TED-seq minus bedgraph>
-Options:
-        -r      3CPS options
+        Usage: tedseq-find3cps [options] -p <TED-seq plus bedgraph> -m <TED-seq minus bedgraph>
+        Options:
+                -r      3CPS options
  ```
 Output:[tedseq.3CPS].bed
  
 ### tedseq-makepal 
 ```
-Usage: tedseq-makepal [options] -a <bam> -b <bed>
-Options:
+        Usage: tedseq-makepal [options] -a <bam> -b <bed>
+        Options:
         -bin    bin size (default = 1)
         -win    window size (default = 500)
 ```
 ### tedseq-getexpr
 ```
-Usage:  TEDseq.bam [options] -p <TED-seq plus bedgraph> -m <TED-seq minus bedgraph>
-Options: 
-        -r      Hg19 Promoters Options
+        Usage:  TEDseq.bam [options] -p <TED-seq plus bedgraph> -m <TED-seq minus bedgraph>
+        Options: 
+                -r      Hg19 Promoters Options
 ```
 Output: [output filename base].bed
 ### stoat-getannot
 ```
+        
 ```
 ### stoat-getdge
 ```
