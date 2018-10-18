@@ -97,25 +97,30 @@ Output: bed format of 3\` cleavage poly-adenylation sites
  
 ### tedseq-makepal 
 ```
-        Usage: tedseq-makepal [options] -a <bam> -b <bed>
-        Options:
+Usage: tedseq-makepal [options] -a <TED-seq alignment bam> -b <gene annotation bed12>
+Options:
         -bin    bin size (default = 1)
         -win    window size (default = 500)
 ```
-Output:[palmatrix.3CPS].bed
+Output: reports a matrix of poly(A) tail length read counts
+1. Gene ID/name
+2. Comma separated poly(A) tail lengths
+3. Comma separated TED-seq read counts of supporting the poly(A) tail lengths
 
 ### tedseq-getexpr
 ```
-        Usage:  TEDseq.bam [options] -p <TED-seq plus bedgraph> -m <TED-seq minus bedgraph>
-        Options: 
-                -r      Hg19 Promoters Options
+Usage:  tedseq-getexpr [options] -a <TED-seq alignment bam> -b <gene annotation bed12>
+Options: 
+        -win    window size from 3\`end (default = 500)
 ```
-Output: [tedseq.expressed].bed
+Output: reports
+1. Gene ID/name in annotated bed file
+2. TED-seq raw read counts
 
 ### stoat-getannot
 ```
-        Usage:  tedseq.3CPS.bed[options] -r <reference genome>
-        Options:
+Usage:  tedseq.3CPS.bed[options] -r <reference genome>
+Options:
                 -r      Hg19 Reference genome  
 ```
 Output:[STOAT.annotated].bed 
