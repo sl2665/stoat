@@ -57,7 +57,7 @@ Output: bed format of transcription active regions (TAR)
 
 ### proseq-getexpr
 ```
-Usage:  proseq-getexpr [options] -b <PRO-seq filename base> -g <gene annotation bed12>
+Usage:  proseq-getexpr [options] -p <PRO-seq filename base> -g <gene annotation bed12>
 Options: 
         -w      Promoter range (default = 500 bp)
         -wu     Promoter upstream range (default = 500 bp)
@@ -127,11 +127,18 @@ Output: bed6 format of supported gene annotations
 
 ### stoat-getdge
 ```
-Usage: stoat-getdge [options] Transcript activity.bed, RNA-exp.bed, palmatrix.3CPS.bed 
+Usage: stoat-getdge [options] -p <proseq-getexpr file> -t <tedseq-getexpr file> -p <tedseq-makepal file>
 Options:
-                -r      
+        -bp     PRO-seq bam file for read count normalization (default = NA)
+        -bt     TED-seq bam file for read count normalization (default = NA)
 ```
-Output:[STOAT.expressed].bed
+Output: reports
+1. Gene ID/name in annotated bed file
+2. Normalized promoter read counts
+3. Normalized gene body read counts
+4. Normalized RNA read counts
+5. Mean poly(A) tail lengths
+
 ## Documentation
 
 ## How to cite
