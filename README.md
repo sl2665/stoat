@@ -27,18 +27,21 @@ Options:
         -a      alinger (STAR/BOWTIE; default = STAR)
         -b      output filename base (default = proseq.out)
 ```
-Output:
+Output: generates 3 files
   * \<output filename base>.bam : aligned bam file with unique molecular identifiers collapsed
   * \<output filename base>.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
   * \<output filename base>.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
          
 ### proseq-makedREG
 ```
-Usage:   proseq-makedREG [options] -p <PRO-seq plus bedgraph> -m <PRO-seq minus bedgraph>
+Usage:   proseq-makedREG [options] -p <PRO-seq filename base> -s <dREG SVM RData>
 Options:
-        -r      dREG options
+        -c      number of CPU cores (default = 4)
+        -g      GPU ID if multiple GPUs are available(default = NA)
 ```
-Output:  [output filename base].bed
+Output: bedgraph format of dREG scores 
+
+[output filename base].bed
 ### proseq-HMM
 ```
 Usage:  proseq-HMM      [options] -p <PRO-seq plus bedgraph> -m <PRO-seq minus bedgraph>
@@ -55,7 +58,7 @@ Options:
         -wu     Promoter upstream range (default = 500 bp)
         -wd     Promoter downstream range (default = 500 bp)
 ```
-Output: text file reporting
+Output: reports
 1. Gene ID/name in annotated bed file
 2. Promoter raw read counts
 3. Gene body read coverage
