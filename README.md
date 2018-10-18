@@ -64,9 +64,9 @@ Output:
   * (output filename base).bam : aligned bam file with unique molecular identifiers collapsed
   * (output filename base).pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
   * (output filename base).mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
-```
-### tedseq-find3cps   
 
+### tedseq-find3cps   
+```
         Usage: tedseq-find3cps [options] -p <TED-seq plus bedgraph> -m <TED-seq minus bedgraph>
         Options:
                 -r      3CPS options
