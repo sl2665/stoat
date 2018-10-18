@@ -28,9 +28,9 @@ Options:
         -b      output filename base (default = proseq.out)
 ```
 Output:
-  1. (output filename base).bam : aligned bam file with unique molecular identifiers collapsed
-  2. (output filename base).pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
-  3. (output filename base).mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
+  * (output filename base).bam : aligned bam file with unique molecular identifiers collapsed
+  * (output filename base).pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
+  * (output filename base).mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
          
 ### proseq-makedREG
 ```
