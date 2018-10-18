@@ -65,8 +65,7 @@ Output:
   * (output filename base).pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
   * (output filename base).mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
 ```
-### tedseq-find3cps
-```
+### tedseq-find3cps```     
         Usage: tedseq-find3cps [options] -p <TED-seq plus bedgraph> -m <TED-seq minus bedgraph>
         Options:
                 -r      3CPS options
@@ -86,15 +85,21 @@ Output:[tedseq.3CPS].bed
         Options: 
                 -r      Hg19 Promoters Options
 ```
-Output: [output filename base].bed
+Output: [tedseq.expressed].bed
 ### stoat-getannot
 ```
-        
+        Usage:  tedseq.3CPS.bed[options] -r <reference genome>
+        Options:
+                -r      Hg19 Reference genome  
 ```
+Output:[output filename base].bed 
 ### stoat-getdge
 ```
+        Usage: tedseq-expressed.bed, RNA-exp.bed, tedseq.3CPS.bed 
+        Options:
+                -r      
 ```
-
+Output:[STOAT.expressed].bed
 ## Documentation
 
 ## How to cite
