@@ -43,7 +43,7 @@ Output: bedgraph format of dREG scores (transcriptional activity)
 
 ### proseq-HMM
 ```
-Usage:  proseq-HMM      [options] -p <PRO-seq filename base>
+Usage:  proseq-HMM [options] -p <PRO-seq filename base>
 Options:
         -w      window size (default = 500 bp) 
 ```
@@ -119,15 +119,16 @@ Output: reports
 
 ### stoat-getannot
 ```
-Usage:  tedseq.3CPS.bed[options] -r <reference genome>
+Usage:  stoat-getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3\`CPS bed>
 Options:
-                -r      Hg19 Reference genome  
+        -g      reference gene annotation bed (default = NA)
 ```
-Output:[STOAT.annotated].bed 
+Output: bed6 format of supported gene annotations
+
 ### stoat-getdge
 ```
-        Usage: Transcript activity.bed, RNA-exp.bed, palmatrix.3CPS.bed 
-        Options:
+Usage: stoat-getdge [options] Transcript activity.bed, RNA-exp.bed, palmatrix.3CPS.bed 
+Options:
                 -r      
 ```
 Output:[STOAT.expressed].bed
