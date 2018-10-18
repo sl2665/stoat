@@ -39,16 +39,21 @@ Options:
         -c      number of CPU cores (default = 4)
         -g      GPU ID if multiple GPUs are available(default = NA)
 ```
-Output: bedgraph format of dREG scores 
+Output: bedgraph format of dREG scores (transcriptional activity)
 
-[output filename base].bed
 ### proseq-HMM
 ```
-Usage:  proseq-HMM      [options] -p <PRO-seq plus bedgraph> -m <PRO-seq minus bedgraph>
+Usage:  proseq-HMM      [options] -p <PRO-seq filename base>
 Options:
-        -r      ChromHMM options 
+        -w      window size (default = 500 bp) 
 ```
-Output: [TAR].bed
+Output: bed format of transcription active regions (TAR)
+1. chromosome
+2. start
+3. end
+4. TAR ID
+5. (empty)
+6. strand
 
 ### proseq-getexpr
 ```
@@ -72,17 +77,23 @@ Options:
         -b      output filename base (default = tedseq.out)
 ```
 Output:
-  * (output filename base).bam : aligned bam file with unique molecular identifiers collapsed
-  * (output filename base).pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
-  * (output filename base).mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
+  * \<output filename base>.bam : aligned bam file with unique molecular identifiers collapsed
+  * \<output filename base>.pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
+  * \<output filename base>.mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
 
 ### tedseq-find3cps   
 ```
-        Usage: tedseq-find3cps [options] -p <TED-seq plus bedgraph> -m <TED-seq minus bedgraph>
-        Options:
-                -r      3CPS options
+Usage:  tedseq-find3cps [options] -b <TED-seq filename base>
+Options:
+        -c      Raw read count cut-off (default = 5)
  ```
-Output:[tedseq.3CPS].bed
+Output: bed format of 3\` cleavage poly-adenylation sites
+1. chromosome
+2. start
+3. end
+4. 3\`CPS ID
+5. read counts supporting the 3\`CPS
+6. strand
  
 ### tedseq-makepal 
 ```
