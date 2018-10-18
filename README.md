@@ -79,6 +79,7 @@ Output:[tedseq.3CPS].bed
         -bin    bin size (default = 1)
         -win    window size (default = 500)
 ```
+Output:[palmatrix.3CPS].bed
 ### tedseq-getexpr
 ```
         Usage:  TEDseq.bam [options] -p <TED-seq plus bedgraph> -m <TED-seq minus bedgraph>
@@ -95,7 +96,7 @@ Output: [tedseq.expressed].bed
 Output:[output filename base].bed 
 ### stoat-getdge
 ```
-        Usage: tedseq-expressed.bed, RNA-exp.bed, tedseq.3CPS.bed 
+        Usage: Transcript activity.bed, RNA-exp.bed, palmatrix.3CPS.bed 
         Options:
                 -r      
 ```
