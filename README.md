@@ -43,13 +43,27 @@ Output:  [output filename base].bed
 ```
 Usage:  proseq-HMM      [options] -p <PRO-seq plus bedgraph> -m <PRO-seq minus bedgraph>
 Options:
-        -r
+        -r      ChromHMM options 
 ```
+Output: [TAR].bed 
 ### proseq-getexpr
 ```
+Usage:  proseq-makedREG [options] -p <PRO-seq plus bedgraph> -m <PRO-seq minus bedgraph>
+Options: 
+        -r      Hg19 Promoters Options
 ```
+Output: [Transcript activity].bed 
 ### tedseq-align
 ```
+Usage:   tedseq-align [options] -f <fastq> -r <reference genome>
+Options:
+        -a      alinger (STAR/BOWTIE; default = STAR)
+        -b      output filename base (default = tedseq.out)
+```
+Output:
+  * (output filename base).bam : aligned bam file with unique molecular identifiers collapsed
+  * (output filename base).pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
+  * (output filename base).mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
 ```
 ### tedseq-find3cps
 ```
