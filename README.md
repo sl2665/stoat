@@ -49,12 +49,17 @@ Output: [TAR].bed
 
 ### proseq-getexpr
 ```
-Usage:  proseq-getexpr [options] -p <PRO-seq plus bedgraph> -m <PRO-seq minus bedgraph> -b <gene annotation bed>
+Usage:  proseq-getexpr [options] -b <PRO-seq filename base> -g <gene annotation bed12>
 Options: 
-        -r      Hg19 Promoters Options
+        -w      Promoter range (default = 500 bp)
+        -wu     Promoter upstream range (default = 500 bp)
+        -wd     Promoter downstream range (default = 500 bp)
 ```
-Output:
-1. 
+Output: text file reporting
+1. Gene ID/name in annotated bed file
+2. Promoter raw read counts
+3. Gene body read coverage
+4. Exon read coverage
 
 ### tedseq-align
 ```
