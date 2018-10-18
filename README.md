@@ -18,6 +18,8 @@ Linux, Mac OS X
 ## Flowchart
 <img src="img/STOAT-FLOWCHART.png" alt="drawing" width="800" />
 
+## Quickstart
+
 ## Usage
 
 ### proseq-align
