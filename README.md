@@ -44,9 +44,9 @@ Options:
 ```
 Output: bedgraph format of dREG scores (transcriptional activity)
 
-### proseq-HMM
+### proseq-hmm
 ```
-Usage:  proseq-HMM [options] -p <PRO-seq filename base>
+Usage:  proseq-hmm [options] -p <PRO-seq filename base>
 Options:
         -w      window size (default = 500 bp) 
 ```
