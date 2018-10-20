@@ -1,0 +1,59 @@
+#!/bin/bash
+# Generate dREG active promoter and enhancer detection
+
+if [ $# -lt 2 ]; then
+	echo -e "Usage:\t proseq-make-dREG [options] -p <PRO-seq alignment base name> -s <svm RData>"
+	echo -e "Options:"
+	echo -e "\t-c\tnumber of CPU cores (default = 4)"
+	echo -e "\t-g\tGPU ID if multiple GPUs are available (default = NA)"
+	exit
+fi
+
+CPU=4
+GPU="NA"
+
+if [ ! -d _dREG_tmp ]; then
+	mkdir _dREG_tmp
+fi
+
+while [[ $# -ge 1 ]]; do
+	key="$1"
+	case $key in
+		-p)
+		PROBASE="$2"
+		shift
+		;;
+		-s)
+		SVM="$2"
+		shift
+		;;
+		-c)
+		CPU="$2"
+		shift
+		;;
+		-g)
+		GPU="$2"
+		shift
+		;;
+		--default)
+		;;
+		*)
+		;;
+	esac
+	shift
+done
+
+# Fetch chromsome sizes from the bam file
+samtools view -H ${PROBASE}.bam | grep @SQ |
+	awk '{print substr($2,4)"\t"substr($3,4)}' > \
+	_dREG_tmp/chrInfo.txt	
+
+# Convert the bedgraph files to bigwig files
+bedGraphToBigWig ${PROBASE}.pl.bedgraph _dREG_tmp/chrInfo.txt _dREG_tmp/pl.bw
+awk '{print $1"\t"$2"\t"$3"\t"-1*$4}' ${PROBASE}.mn.bedgraph > _dREG_tmp/mn.bedgraph
+bedGraphToBigWig _dREG_tmp/mn.bedgraph _dREG_tmp/chrInfo.txt _dREG_tmp/mn.bw
+
+# Run dREG score prediction solution
+bash run_predict.bsh _dREG_tmp/pl.bw _dREG_tmp/mn.bw _dREG_tmp/out ${SVM} ${CPU} ${GPU} 
+gunzip -c _dREG_tmp/out.bedGraph.gz
+rm -rf _dREG_tmp
