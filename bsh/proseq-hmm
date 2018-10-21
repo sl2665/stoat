@@ -1,0 +1,45 @@
+#!/bin/bash
+# Use Hidden Markov Model to generate trascnriptionally active regions (TARs).
+
+if [ $# -lt 2 ]; then
+	echo -e "Usage:\t proseq-hmm [options] -p <PRO-seq filename base> -mp <mappability bedgraph>"
+	echo -e "Options:"
+	echo -e "\t-w\twindow size (default = 500)"
+	exit
+fi
+
+WIN=500
+
+while [[ $# -ge 1 ]]; do
+	key="$1"
+	case $key in
+		-p)
+		PRO="$2"
+		shift
+		;;
+		-mp)
+		MAP="$2"
+		shift
+		;;
+		-w)
+		WIN="$2"
+		shift
+		;;
+		--default)
+		;;
+		*)
+		;;
+	esac
+	shift
+done
+
+if [ ! -d _hmm_tmp ]; then
+	mkdir _hmm_tmp
+fi
+
+# Run tar
+bin/tar -o _hmm_tmp/out.bed -p ${PRO}.pl.bedgraph -m ${PRO}.mn.bedgraph \
+	-mp ${MAP} -b ${WIN}
+cat _hmm_tmp/out.bed
+
+rm -rf _hmm_tmp

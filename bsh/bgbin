@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+	echo -e "Usage:\t bgbin [options] -a <bedgraph>"
+	echo -e "Options:"
+	echo -e "\t-bin\tbin size (default=1000)"
+	exit
+fi
+
+BIN=1000
+
+while [[ $# -ge 1 ]]; do
+	key="$1"
+	case $key in
+		-a)
+		BG="$2"
+		shift
+		;;
+		-bin)
+		BIN="$2"
+		shift
+		;;
+		--default)
+		;;
+		*)
+		;;
+	esac
+	shift
+done
+
+awk -v bin=$BIN 'NR==1{prevBin=int($2/bin);prevChr=$1}
+	{	curChr=$1;curBin=int($2/bin);
+		if(curChr!=prevChr) {print prevChr"\t"prevBin*bin"\t"(prevBin+1)*bin"\t"count;
+			prevChr=curChr;prevBin=curBin;count=$4*($3-$2); }
+		else if(curBin>prevBin) {print prevChr"\t"prevBin*bin"\t"(prevBin+1)*bin"\t"count;
+			prevBin=curBin;count=$4*($3-$2); }
+		else {count+=$4*($3-$2)}
+	} END {print prevChr"\t"prevBin*bin"\t"(prevBin+1)*bin"\t"count;}' $BG
