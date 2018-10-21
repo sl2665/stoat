@@ -63,14 +63,15 @@ Output: bed format of transcription active regions (TAR)
 Usage:  proseq-getexpr [options] -p <PRO-seq filename base> -g <gene annotation bed12>
 Options: 
         -w      Promoter range (default = 500 bp)
-        -wu     Promoter upstream range (default = 500 bp)
-        -wd     Promoter downstream range (default = 500 bp)
 ```
 Output: reports
 1. Gene ID/name in annotated bed file
 2. Promoter raw read counts
 3. Gene body read coverage
 4. Exon read coverage
+5. Promoter RPKM
+6. Gene body eRPKM
+7. Exon eRPKM
 
 ### tedseq-align
 ```
