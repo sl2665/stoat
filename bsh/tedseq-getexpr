@@ -1,35 +1,32 @@
 #!/bin/bash
-# Align PRO-seq to make bam and bedgraph files
+# Generates a table of TED-seq expression levels
 
 if [ $# -lt 2 ]; then
-	echo -e "Usage:\t proseq-align [options] -f <fastq> -r <reference genome>"
+	echo -e "Usage:\ttedseq-getexpr [options] -t <TED-seq filename base> -g <gene annotation bed12>"
 	echo -e "Options:"
-	echo -e "\t-a\talinger (STAR/BOWTIE; default = STAR)"
-	echo -e "\t-b\toutput filename base (default = proseq.out)"
+	echo -e "\t-w\twindow size from 3\`end (default = 500 bp)"
 	exit
 fi
 
-SCRIPTDIR="~/Work/shared/script/"
-ALINGER=star
-BASE="proseq.out"
+if [ ! -d _tedseq_tmp ]; then
+	mkdir _tedseq_tmp
+fi
+
+RNG=500
 
 while [[ $# -ge 1 ]]; do
 	key="$1"
 	case $key in
-		-a)
-		BAM="$2"
+		-p)
+		TED="$2"
 		shift
 		;;
-		-b)
+		-g)
 		BED="$2"
 		shift
 		;;
-		-bin)
-		BIN="$2"
-		shift
-		;;
-		-win)
-		WIN="$2"
+		-w)
+		RNG="$2"
 		shift
 		;;
 		--default)
@@ -40,15 +37,22 @@ while [[ $# -ge 1 ]]; do
 	shift
 done
 
-# Cut out adapter sequences if any
-cutadapt -a TGGAATTCTCGGGTGCCAAGG $1 > "${1%.*}".trim.fastq 
-# Tagging UMI to the sequence ID
-~/Work/shared/script/umi-split-fastq.sh "${1%.*}".trim.fastq
+# Last 3' ends within range
+${SCRIPTDIR}bed12toend3 $BED $RNG | sort -k1,1 -k2,2n > _tedseq_tmp/_end3.bed.tmp
 
-# Alignemnt to the reference genome
-~/Work/bin/star --genomeDir ~/Work/shared/ref/hg38 --readFilesIn "${1%.*}".trim.UMItag.fastq --outFilterMultimapNmax 1 --runThreadN 8
+# Get readcounts
+bedtools map -a _tedseq_tmp/_end3.bed.tmp -b ${TED}.pl.bedgraph -o sum -c 4 -split | cut -f4,6,7 > _tedseq_tmp/_pl.tmp
+bedtools map -a _tedseq_tmp/_end3.bed.tmp -b ${TED}.mn.bedgraph -o sum -c 4 -split | cut -f4,7 > _tedseq_tmp/_mn.tmp
+awk '$4>0{s+=$4;next}$4<0{s-=$4}END{print s}' ${TED}.pl.bedgraph ${TED}.mn.bedgraph > _tedseq_tmp/_total_rc.tmp
 
-# Collapse same UMIs at the same mapped positions 
-~/Work/shared/script/umi-collapse.sh Aligned.out.sam
+# Merge two strands
+paste _tedseq_tmp/_pl.tmp _tedseq_tmp/_mn.tmp | awk '$2=="+"{print $1"\t"0+$3;next}{print $1"\t"0-$5}' > \
+	_tedseq_tmp/_merge.tmp
 
+# Paste all information and process into RPKM data
+awk -v range=${RNG} 'BEGIN{print "id\tted\tRPKMted"}
+	NR==FNR{RPKMfactor=1000000/$1;next}
+	{ 	printf $1"\t"$2"\t"$2*RPKMfactor*1000/range}' \
+	_tedseq_tmp/_total_rc.tmp _tedseq_tmp/_merge.tmp
 
+rm rf _tedseq_tmp
