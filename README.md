@@ -115,7 +115,7 @@ Output: reports a matrix of poly(A) tail length read counts
 ```
 Usage:  tedseq-getexpr [options] -a <TED-seq alignment bam> -b <gene annotation bed12>
 Options: 
-        -win    window size from 3\`end (default = 500)
+        -w      window size from 3\`end (default = 500)
 ```
 Output: reports
 1. Gene ID/name in annotated bed file
