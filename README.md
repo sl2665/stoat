@@ -20,7 +20,13 @@ Linux, Mac OS X
 <img src="img/STOAT-FLOWCHART.png" alt="drawing" width="800" />
 
 ## Quickstart
+### Installation
+* Download to your installation directory
+* Add path
+```
+PATH=$PATH:/your/installation/directory
 
+```
 ## Usage
 
 ### proseq-align
