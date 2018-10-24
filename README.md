@@ -22,7 +22,7 @@ Linux, Mac OS X
 ## Quickstart
 ### Installation
 * Download to your installation directory
-* Add path
+* Add yout installation directory to PATH
 ```
 PATH=$PATH:/your/installation/directory
 
