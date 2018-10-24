@@ -1,0 +1,99 @@
+#!/bin/bash
+# Find 3'CPS from TED-seq bedgraph files
+
+if [ $# -lt 2 ]; then
+	echo -e "Usage:\ttedseq-find3cps [options] -t <TED-seq filename base>"
+	echo -e "Options:"
+	echo -e "\t-c\tRaw read count cut-off (default = 5 reads)"
+	echo -e "\t-b\tBin size/resolution (default = 5 bp)"
+	echo -e "\t-s\tLibrary insert size (default = 250 bp)"
+	echo -e "\t-m\tMedian poly(A) tail length (default = 75 bp)"
+	exit
+fi
+
+SCRIPTDIR="bsh/"
+CUTOFF=5
+BIN=5
+MPAL=75
+SIZE=250
+
+if [ ! -d _tedseq_tmp ]; then
+	mkdir _tedseq_tmp
+fi
+
+while [[ $# -ge 1 ]]; do
+	key="$1"
+	case $key in
+		-t)
+		TED="$2"
+		shift
+		;;
+		-c)
+		CUTOFF="$2"
+		shift
+		;;
+		-b)
+		BIN="$2"
+		shift
+		;;
+		-s)
+		SIZE="$2"
+		shift
+		;;
+		-m)
+		MPAL="$2"
+		shift
+		;;
+		--default)
+		;;
+		*)
+		;;
+	esac
+	shift
+done
+
+# Make binned bedgraph
+${SCRIPTDIR}bgbin -a ${TED}.pl.bedgraph -bin ${BIN} > _tedseq_tmp/_pl.bg
+${SCRIPTDIR}bgbin -a ${TED}.pl.bedgraph -bin ${BIN} | awk '{print $1"\t"$2"\t"$3"\t"-1*$4}' \
+	> _tedseq_tmp/_mn.bg
+
+# Find all bins > CUTOFF reads extend by +- MPAL, save as bed format
+awk -v co=${CUTOFF} -v mp=${MPAL} '$4>co && $2>mp+1 {print $1"\t"$2-mp"\t"$3+mp"\t+\t"$4"\t"$1":"$2}' _tedseq_tmp/_pl.bg > _tedseq_tmp/_pl.tmp1.bed
+awk -v co=${CUTOFF} -v mp=${MPAL} '$4<-co && $2>mp+1 {print $1"\t"$2-mp"\t"$3+mp"\t-\t"$4"\t"$1":"$2}' _tedseq_tmp/_mn.bg > _tedseq_tmp/_mn.tmp1.bed
+	>  
+# Merge peaks that are overlapping using bedtools merge
+bedtools merge -i _tedseq_tmp/_pl.tmp1.bed > _tedseq_tmp/_pl.tmp2.bed
+bedtools merge -i _tedseq_tmp/_mn.tmp1.bed > _tedseq_tmp/_mn.tmp2.bed
+
+## Find peak within merged blocks
+# Get read counts for all positions within blocks
+bedtools map -a _tedseq_tmp/_pl.tmp2.bed -b _tedseq_tmp/_pl.bg -o collapse,collapse -c 2,4 \
+	> _tedseq_tmp/_pl.tmp3.bed
+bedtools map -a _tedseq_tmp/_mn.tmp2.bed -b _tedseq_tmp/_mn.bg -o collapse,collapse -c 2,4 \
+	> _tedseq_tmp/_mn.tmp3.bed
+
+# Find the position with the maximum read count within blocks
+awk '{n = split($4, pos, ","); split($5,readcount,","); \
+	maxpos = 1; for(i = 1; i<=n; ++i) if(readcount[ i ]>readcount[ maxpos ]) maxpos=i; \
+	print $1"\t"pos[ maxpos ]"\t"pos[ maxpos ]+1"\t+\t"readcount[ maxpos ]"\t"$1":"pos[ maxpos ]}' \
+	_tedseq_tmp/_pl.tmp3.bed > _tedseq_tmp/_pl.tmp4.bed
+
+awk '{n = split($4, pos, ","); split($5,readcount,","); \
+	maxpos = 1; for(i = 1; i<=n; ++i) if(readcount[ i ]>readcount[ maxpos ]) maxpos=i; \
+	print $1"\t"pos[ maxpos ]"\t"pos[ maxpos ]+1"\t+\t"readcount[ maxpos ]"\t"$1":"pos[ maxpos ]}' \
+	_tedseq_tmp/_mn.tmp3.bed > _tedseq_tmp/_mn.tmp4.bed
+
+# Define upstream region in bed file -300 from 3'CPS
+
+awk '$2>300{print $1 "\t" $2-300 "\t" $2 "\t" $4 "\t" $5 "\t" $6}' 3CPS.pl.tmp4.bed > TED.pl.tmp1.bed
+awk '{print $1 "\t" $2 "\t" $2+300 "\t" $4 "\t" $5 "\t" $6}' 3CPS.mn.tmp4.bed > TED.mn.tmp1.bed
+
+# Generate readcount from the TED-seq bedgraph files
+bedtools map -a TED.pl.tmp1.bed -b TEDseq.DMSO.pl.bedgraph -c 4 -o sum > TED.pl.tmp2.bed
+bedtools map -a TED.mn.tmp1.bed -b TEDseq.DMSO.mn.bedgraph -c 4 -o sum > TED.mn.tmp2.bed
+
+# Merge the tmp bed files
+cat TED.pl.tmp2.bed TED.mn.tmp2.bed > TED.tmp3.bed
+
+
+

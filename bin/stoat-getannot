@@ -1,0 +1,43 @@
+#!/bin/bash
+# Combine dREG, HMM, and 3`CPS data to generate gene annotation
+
+if [ $# -lt 2 ]; then
+	echo -e "Usage:\tstoat-getannot [options] -f <fastq> -r <reference genome>"
+	echo -e "Options:"
+	echo -e "\t-a\talinger (STAR/BOWTIE; default = STAR)"
+	echo -e "\t-b\toutput filename base (default = proseq.out)"
+	exit
+fi
+
+SCRIPTDIR="~/Work/shared/script/"
+ALINGER=star
+BASE="proseq.out"
+
+while [[ $# -ge 1 ]]; do
+	key="$1"
+	case $key in
+		-a)
+		BAM="$2"
+		shift
+		;;
+		-b)
+		BED="$2"
+		shift
+		;;
+		-bin)
+		BIN="$2"
+		shift
+		;;
+		-win)
+		WIN="$2"
+		shift
+		;;
+		--default)
+		;;
+		*)
+		;;
+	esac
+	shift
+done
+
+
