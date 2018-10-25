@@ -68,9 +68,9 @@ umi-collapse _proseq_tmp/Aligned.out.sam
 mv _proseq_tmp/Aligned.out.uniqueUMI.bam ${BASE}.bam
 
 # Generate bedgraph files
-bedtools genomecov -ibam ${BASE}.bam -bg -strand + -5 | \
-	awk '{print $1"\t"$2"\t"$3"\t"-1*$4}' > ${BASE}.mn.bedgraph
+bedtools genomecov -ibam ${BASE}.bam -bg -strand + -5 \
+	| awk '{print $1"\t"$2"\t"$3"\t"$4*-1}' > ${BASE}.mn.bedgraph
 bedtools genomecov -ibam ${BASE}.bam -bg -strand - -5 > ${BASE}.pl.bedgraph
 
 # Remove temporary file directory
-#rm -rf _proseq_tmp
+rm -rf _proseq_tmp
