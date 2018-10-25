@@ -46,7 +46,7 @@ bedtools map -a ${BED} -b ${PRO}.pl.bedgraph -split -o count -c 4 | cut -f4,6,13
 bedtools map -a ${BED} -b ${PRO}.mn.bedgraph -split -o count -c 4 | cut -f4,13 > _proseq_tmp/_mn.ex.tmp
 
 # Total read counts & coverage
-awk '$4>0{s+=$4;++c;next$4<0{s-=$4;++c}END{print s"\t"c}' ${PRO}.pl.bedgraph ${PRO}.mn.bedgraph > \
+awk '$4>0{s+=$4;++c;next}$4<0{s-=$4;++c}END{print s"\t"c}' ${PRO}.pl.bedgraph ${PRO}.mn.bedgraph > \
 	_proseq_tmp/_total_readcount.tmp
 
 # Gene length and exon length information
@@ -55,7 +55,7 @@ awk '{s=0; split($11,a,","); for(i=1;i<=$10;++i) s+=a[i]; print $4"\t"$3-$2"\t"s
 
 # Promoter proximal counts
 awk -v range=${RNG} '$6=="+"{print $1"\t"$2"\t"$2+range"\t"$4"\t"$5"\t"$6;next}
-	$3>range{print $1"\t"$3-range"\t"$3"\t"$4"\t"$5"\t"$6}' $1 | sort -k1,1 -k2,2n > _proseq_tmp/_pp.bed.tmp
+	$3>range{print $1"\t"$3-range"\t"$3"\t"$4"\t"$5"\t"$6}' ${BED} | sort -k1,1 -k2,2n > _proseq_tmp/_pp.bed.tmp
 bedtools map -a _proseq_tmp/_pp.bed.tmp -b ${PRO}.pl.bedgraph -o sum -c 4 | cut -f4,6,7 > _proseq_tmp/_pl.pp.tmp
 bedtools map -a _proseq_tmp/_pp.bed.tmp -b ${PRO}.mn.bedgraph -o sum -c 4 | cut -f4,7 > _proseq_tmp/_mn.pp.tmp
 
@@ -64,15 +64,16 @@ paste _proseq_tmp/_pl.gb.tmp _proseq_tmp/_mn.gb.tmp | awk '$2=="+"{print $1"\t"0
 	_proseq_tmp/_gb.tmp
 paste _proseq_tmp/_pl.pp.tmp _proseq_tmp/_mn.pp.tmp | awk '$2=="+"{print $1"\t"0+$3;next}{print $1"\t"0-$5}' > \
 	_proseq_tmp/_pp.tmp
-paste _proseq_tmp/_pl.ex.tmp _proseq_tmp/_mn.ex.tmp | awk '$2=="+"{print $1"\t"0+$3;next}{print $1"\t"0-$5}' > \
+paste _proseq_tmp/_pl.ex.tmp _proseq_tmp/_mn.ex.tmp | awk '$2=="+"{print $1"\t"0+$3;next}{print $1"\t"0+$5}' > \
 	_proseq_tmp/_ex.tmp
 
 # Paste all information and process into RPKM data
 paste _proseq_tmp/_lengths.tmp _proseq_tmp/_pp.tmp _proseq_tmp/_gb.tmp _proseq_tmp/_ex.tmp > _proseq_tmp/_merge.tmp
 
-awk -v range=${RNG} 'BEGIN{print "id\tpp\tgb\ex\tRPKMpp\teRPKMgb\teRPKMex"}
+awk -v range=${RNG} 'BEGIN{print "id\tpp\tgb\tex\tRPKMpp\teRPKMgb\teRPKMex"}
 	NR==FNR{tct=$1;tcv=$2;RPKMfactor=1000000/tct;eRPKMfactor=1000000*tct/tcv/tcv;next}
 	{ 	printf $1"\t"$5"\t"$7"\t"$9"\t"$5*RPKMfactor*1000/range"\t";
-		printf $7*eRPKMfactor*1000/$2"\t"$9*eRPKMfactor*1000/$3}'
+		print $7*eRPKMfactor*1000/$2"\t"$9*eRPKMfactor*1000/$3}' \
+		_proseq_tmp/_total_readcount.tmp _proseq_tmp/_merge.tmp
 
-rm rf _proseq_tmp
+rm -rf _proseq_tmp
