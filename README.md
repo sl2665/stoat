@@ -22,10 +22,9 @@ Linux, Mac OS X
 ## Quickstart
 ### Installation
 * Download to your installation directory
-* Add yout installation directory to PATH
+* Add your installation directory to PATH
 ```
-PATH=$PATH:/your/installation/directory
-
+PATH=$PATH:/(your)/(installation)/(directory)/bin
 ```
 ## Usage
 
