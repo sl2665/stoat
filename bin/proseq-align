@@ -65,7 +65,7 @@ fi;
 
 # Collapse same UMIs at the same mapped positions 
 umi-collapse _proseq_tmp/Aligned.out.sam
-mv _proseq_tmp/Aligned.out.uniqueUMI.bam ${BASE}.bam
+mv proseq_tmp/Aligned.out.uniqueUMI.bam ${BASE}.bam
 
 # Generate bedgraph files
 bedtools genomecov -ibam ${BASE}.bam -bg -strand + -5 | \
@@ -73,4 +73,4 @@ bedtools genomecov -ibam ${BASE}.bam -bg -strand + -5 | \
 bedtools genomecov -ibam ${BASE}.bam -bg -strand - -5 > ${BASE}.pl.bedgraph
 
 # Remove temporary file directory
-rm -rf _proseq_tmp
+#rm -rf _proseq_tmp
