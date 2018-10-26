@@ -9,7 +9,6 @@ if [ $# -lt 2 ]; then
 	exit
 fi
 
-PATHTOALIGNER="~/Work/bin/"
 ALIGNER="STAR"
 BASE="tedseq.out"
 
