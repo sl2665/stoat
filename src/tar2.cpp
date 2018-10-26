@@ -130,9 +130,6 @@ int main(int argc, char *argv[])
 			if(posit>=nlen) break;
 			it++;
 		}
-		pb.flush();
-		mb.flush();
-		mp.flush();
 		delete[] v;
 	    delete[] p;
         delete[] path;
