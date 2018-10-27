@@ -72,25 +72,24 @@ int main(int argc, char *argv[])
     }
 
     bgdata pb,mb,mp;
-    pb.load(pfn);
-    cout<<"Plus strand loaded"<<endl;
-    mb.load(mfn);
-    cout<<"Minus strand loaded"<<endl;
-    mp.load(mpfn);
-    cout<<"Mappability loaded"<<endl;
+    cerr<<pb.load(pfn)<<" lines of plus strand data loaded"<<endl;
+    cerr<<mb.load(mfn)<<" lines of minus strand data loaded"<<endl;
+    cerr<<mp.load(mpfn)<<" lines of mappability data loaded"<<endl;
 	ofstream out(ofn);
     srand(time(NULL));
-	out<<"TAR calls"<<endl;
-    int it=1;
+
+	int it=1;
+	cerr<<pb.chr.size()<<" chromosomes detected"<<endl;
+	cerr<<"HMM estimates"<<endl;
+	cerr<<"chromosome\tEmission1\tEmission2\tTransition1(kb)\tTransition2(kb)"<<endl;
 	
-	for(int i = 0; i <= pb.chr.size(); ++i)
+	for(int i = 0; i < pb.chr.size(); ++i)
     {
-        if(!pb.set(pb.chr[i])) break;
-        if(!mb.set(pb.chr[i])) break;
-        if(!mp.set(pb.chr[i])) break;
+        if(!pb.set(pb.chr[i])) continue;
+        if(!mb.set(pb.chr[i])) continue;
+        if(!mp.set(pb.chr[i])) continue;
 
 		int len=pb.len;
-        cout<<pb.chr[i]<<endl;
 		int *v, *p, *path;
 		v=new int[len/bin+1];
 		p=new int[len/bin+1];
@@ -101,8 +100,9 @@ int main(int argc, char *argv[])
 		hmm1 h1(nlen);
 		h1.init(v,0.999999-pow(0.999,bin),0.999999-pow(0.9,bin),0.00001*bin, 0.00001*bin);
 		h1.iteration('f','f',1000);
-		cout<<pb.chr[i]<<" plus HMM estimates\t";
-		cout<<h1.p_emit(0)/bin<<"\t"<<h1.p_emit(1)/bin<<"\t"<<bin/h1.p_transit(0,1)<<"\t"<<bin/h1.p_transit(1,0)<<endl;
+		cerr<<pb.chr[i]<<" plus\t";
+		cerr<<h1.p_emit(0)/bin*1000<<"\t"<<h1.p_emit(1)/bin*1000<<"\t";
+		cerr<<bin/h1.p_transit(0,1)/1000<<"\t"<<bin/h1.p_transit(1,0)/1000<<endl;
 		h1.viterbi(path);
 		posit=0, start=-1;
 		while(1)
@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
 			if(posit>=nlen) break;
 			start=posit;
 			while(path[posit]==1&&posit<nlen) posit++;
-			out<<it<<"\ttar#"<<it<<"\ttar\t"<<pb.chr[i]<<"\t+\t"<<p[start]<<"\t"<<p[posit]<<"\t"<<endl;
+			cout<<pb.chr[i]<<"\t"<<p[start]<<"\t"<<p[posit]<<"\ttar#"<<it<<"\t.\t+"<<endl;
 			if(posit>=nlen) break;
 			it++;
 		}
@@ -121,8 +121,9 @@ int main(int argc, char *argv[])
 		hmm1 h2(nlen);
 		h2.init(v,0.999999-pow(0.999,bin),0.999999-pow(0.9,bin),0.00001*bin, 0.00001*bin);
 		h2.iteration('f','f',1000);
-		cout<<pb.chr[i]<<" minus HMM estimates\t";
-		cout<<h2.p_emit(0)/bin<<"\t"<<h2.p_emit(1)/bin<<"\t"<<bin/h2.p_transit(0,1)<<"\t"<<bin/h2.p_transit(1,0)<<endl;
+		cerr<<pb.chr[i]<<" minus\t";
+		cerr<<h2.p_emit(0)/bin*1000<<"\t"<<h2.p_emit(1)/bin*1000<<"\t";
+		cerr<<bin/h2.p_transit(0,1)/1000<<"\t"<<bin/h2.p_transit(1,0)/1000<<endl;
 		h2.viterbi(path);
 		posit=0, start=-1;
 		while(1)
@@ -131,7 +132,7 @@ int main(int argc, char *argv[])
 			if(posit>=nlen) break;
 			start=posit;
 			while(path[posit]==1&&posit<nlen) posit++;
-			out<<it<<"\ttar#"<<it<<"\ttar\t"<<pb.chr[i]<<"\t-\t"<<p[posit]<<"\t"<<p[start]<<"\t"<<endl;
+			cout<<pb.chr[i]<<"\t"<<p[posit]<<"\t"<<p[start]<<"\ttar#"<<it<<"\t.\t-"<<endl;
 			if(posit>=nlen) break;
 			it++;
 		}
