@@ -78,6 +78,7 @@ if [ $BEDCOL -eq 12 ]; then
 				for(j=prev+1;j<N;++j) printf "\t0";
 				printf "\n";
 			}'
+		rm _tmp
 	else
 		bedtools map -a $BED -b $BG -c 2,4 -o collapse -sorted -nobuf -delim " " | \
 			awk -v bin=$BIN ' 
