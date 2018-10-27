@@ -9,7 +9,7 @@ Stereoptic transcriptome analysis that adds dynamics-perception using binocular 
 ### Supported OS
 Linux, Mac OS X
 
-### Prerequisite
+### Prerequisites
 * samtools (http://www.htslib.org/)
 * bedtools (https://bedtools.readthedocs.io/en/latest/)
 * cutadapt (https://cutadapt.readthedocs.io/en/stable/)
@@ -19,16 +19,19 @@ Linux, Mac OS X
 
 These softwares should be accessibile from your PATH
 
-## Flowchart
-<img src="img/STOAT-FLOWCHART.png" alt="drawing" width="800" />
-
-## Quickstart
-### Installation
+### Install stoat
 * Download to your installation directory
 * Add your installation directory to PATH
 ```
 PATH=$PATH:/(your)/(installation)/(directory)/bin
 ```
+
+## Flowchart
+<img src="img/STOAT-FLOWCHART.png" alt="drawing" width="800" />
+
+## Quickstart
+
+
 ## Usage
 
 ### proseq-align
