@@ -38,8 +38,8 @@ if [ ! -d _hmm_tmp ]; then
 fi
 
 # Run tar
-bin/tar -o _hmm_tmp/out.bed -p ${PRO}.pl.bedgraph -m ${PRO}.mn.bedgraph \
+tar2 -o _hmm_tmp/out.bed -p ${PRO}.pl.bedgraph -m ${PRO}.mn.bedgraph \
 	-mp ${MAP} -b ${WIN}
 cat _hmm_tmp/out.bed
 
-rm -rf _hmm_tmp
+# rm -rf _hmm_tmp
