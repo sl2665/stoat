@@ -17,7 +17,7 @@ Linux, Mac OS X
 * dREG (https://github.com/Danko-Lab/dREG)
 * bedGraphToBigWig (http://hgdownload.soe.ucsc.edu/admin/exe/)
 
-These softwares should be accessibile from your PATH
+These softwares should be accessibile in your PATH
 
 ### Install stoat
 * Download to your installation directory
