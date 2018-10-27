@@ -17,7 +17,7 @@ RNG=500
 while [[ $# -ge 1 ]]; do
 	key="$1"
 	case $key in
-		-p)
+		-t)
 		TED="$2"
 		shift
 		;;
@@ -38,11 +38,11 @@ while [[ $# -ge 1 ]]; do
 done
 
 # Last 3' ends within range
-${SCRIPTDIR}bed12toend3 $BED $RNG | sort -k1,1 -k2,2n > _tedseq_tmp/_end3.bed.tmp
+bed12toend3 $BED $RNG | sort -k1,1 -k2,2n > _tedseq_tmp/_end3.bed.tmp
 
 # Get readcounts
-bedtools map -a _tedseq_tmp/_end3.bed.tmp -b ${TED}.pl.bedgraph -o sum -c 4 -split | cut -f4,6,7 > _tedseq_tmp/_pl.tmp
-bedtools map -a _tedseq_tmp/_end3.bed.tmp -b ${TED}.mn.bedgraph -o sum -c 4 -split | cut -f4,7 > _tedseq_tmp/_mn.tmp
+bedtools map -a _tedseq_tmp/_end3.bed.tmp -b ${TED}.pl.bedgraph -o sum -c 4 -split | cut -f4,6,13 > _tedseq_tmp/_pl.tmp
+bedtools map -a _tedseq_tmp/_end3.bed.tmp -b ${TED}.mn.bedgraph -o sum -c 4 -split | cut -f4,13 > _tedseq_tmp/_mn.tmp
 awk '$4>0{s+=$4;next}$4<0{s-=$4}END{print s}' ${TED}.pl.bedgraph ${TED}.mn.bedgraph > _tedseq_tmp/_total_rc.tmp
 
 # Merge two strands
@@ -52,7 +52,7 @@ paste _tedseq_tmp/_pl.tmp _tedseq_tmp/_mn.tmp | awk '$2=="+"{print $1"\t"0+$3;ne
 # Paste all information and process into RPKM data
 awk -v range=${RNG} 'BEGIN{print "id\tted\tRPKMted"}
 	NR==FNR{RPKMfactor=1000000/$1;next}
-	{ 	printf $1"\t"$2"\t"$2*RPKMfactor*1000/range}' \
+	{ 	print $1"\t"$2"\t"$2*RPKMfactor*1000/range}' \
 	_tedseq_tmp/_total_rc.tmp _tedseq_tmp/_merge.tmp
 
-rm rf _tedseq_tmp
+#rm -rf _tedseq_tmp
