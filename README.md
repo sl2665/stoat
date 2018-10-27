@@ -21,6 +21,10 @@ These softwares should be accessibile from your PATH
 
 ### Install stoat
 * Download to your installation directory
+* Run make
+```
+make
+```
 * Add your installation directory to PATH
 ```
 PATH=$PATH:/(your)/(installation)/(directory)/bin
