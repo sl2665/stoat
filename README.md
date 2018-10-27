@@ -21,8 +21,9 @@ These softwares should be accessibile from your PATH
 
 ### Install stoat
 * Download to your installation directory
-* Run make
+* God to your installation directory and run make
 ```
+cd /(your)/(installation)/(directory)
 make
 ```
 * Add your installation directory to PATH
