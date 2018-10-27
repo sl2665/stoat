@@ -45,12 +45,12 @@ done
 
 # Tagging UMI to the sequence ID
 
-bsh/umi-split-fastq ${FASTQ}
-mv $"{FASTQ%.*}".UMItag.fastq > _tedseq_tmp/_umitag.fastq
+umi-split-fastq ${FASTQ}
+mv ${FASTQ%.*}.UMItag.fastq _tedseq_tmp/_umitag.fastq
 
 # Alignemnt to the reference genome
 if [ $ALIGNER = "STAR" ]; then
-	${PATHTOALIGNER}star --genomeDir ${REF} \
+	star --genomeDir ${REF} \
 		--readFilesIn _tedseq_tmp/_umitag.fastq \
 		--outFilterMultimapNmax 1 --runThreadN 8 \
 		--outFileNamePrefix _tedseq_tmp/ 
@@ -68,7 +68,7 @@ mv _tedseq_tmp/Aligned.out.uniqueUMI.bam ${BASE}.bam
 bedtools genomecov -ibam ${BASE}.bam -bg -strand + -5 \
 	> ${BASE}.pl.bedgraph
 bedtools genomecov -ibam ${BASE}.bam -bg -strand - -5 | \
-	awk '{print $1"\t"$2"\t"$3"\t"-1*$4}' > ${BASE}.mn.bedgraph
+	awk '{print $1"\t"$2"\t"$3"\t"$4*-1}' > ${BASE}.mn.bedgraph
 
 # Remove temporary file directory
 rm -rf _tedseq_tmp
