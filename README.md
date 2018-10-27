@@ -16,6 +16,7 @@ Linux, Mac OS X
 * STAR or bowtie aligner (https://github.com/alexdobin/STAR/releases or http://bowtie-bio.sourceforge.net/index.shtml)
 * dREG (https://github.com/Danko-Lab/dREG)
 * bedGraphToBigWig (http://hgdownload.soe.ucsc.edu/admin/exe/)
+
 These softwares should be accessibile from your PATH
 
 ## Flowchart
