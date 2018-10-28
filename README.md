@@ -26,7 +26,7 @@ These softwares should be accessibile in your PATH
 cd /(your)/(installation)/(directory)
 make
 ```
-* Add your installation directory to PATH
+* Add the bin directory to PATH
 ```
 PATH=$PATH:/(your)/(installation)/(directory)/bin
 ```
