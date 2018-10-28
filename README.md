@@ -139,6 +139,7 @@ Options:
 Output: reports
 1. Gene ID/name in annotated bed file
 2. TED-seq raw read counts
+3. RPKM normalized reads
 
 ### stoat-getannot
 ```
