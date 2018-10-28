@@ -91,7 +91,7 @@ Output: reports
 
 ### tedseq-align
 ```
-Usage:   tedseq-align [options] -f <fastq> -r <reference genome>
+Usage:  tedseq-align [options] -f <fastq> -r <reference genome>
 Options:
         -a      alinger (STAR/BOWTIE; default = STAR)
         -b      output filename base (default = tedseq.out)
@@ -103,10 +103,13 @@ Output:
 
 ### tedseq-find3cps   
 ```
-Usage:  tedseq-find3cps [options] -b <TED-seq filename base>
+Usage:  tedseq-find3cps [options] -t <TED-seq filename base>
 Options:
-        -c      Raw read count cut-off (default = 5)
- ```
+        -c      Raw read count cut-off (default = 5 reads)
+        -b      Bin size/resolution (default = 5 bp)
+        -s      Library insert size (default = 250 bp)
+        -m      Median poly(A) tail length (default = 75 bp)
+```
 Output: bed format of 3\` cleavage poly-adenylation sites
 1. chromosome
 2. start
