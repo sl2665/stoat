@@ -51,9 +51,9 @@ Output: generates 3 files
   * \<output filename base>.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
   * \<output filename base>.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
          
-### proseq-makedREG
+### proseq-make-dREG
 ```
-Usage:   proseq-makedREG [options] -p <PRO-seq filename base> -s <dREG SVM RData>
+Usage:   proseq-make-dREG [options] -p <PRO-seq filename base> -s <dREG SVM RData>
 Options:
         -c      number of CPU cores (default = 4)
         -g      GPU ID if multiple GPUs are available(default = NA)
