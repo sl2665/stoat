@@ -35,7 +35,7 @@ PATH=$PATH:/(your)/(installation)/(directory)/bin
 <img src="img/STOAT-FLOWCHART.png" alt="drawing" width="800" />
 
 ## Quickstart
-
+In the example directory,
 ```
 cd example
 ```
@@ -182,4 +182,4 @@ Output: reports
 ## Documentation
 
 ## How to cite
-Lee S.H., Woo Y.M., Kwak H. (2018). Stereoptic transcriptome analysis refines functional gene annotation and identifies polyadenylation of atypical transcripts.
+Lee S.H., Woo Y.M., Kwak H. Stereoptic transcriptome analysis refines functional gene annotation and identifies polyadenylation of atypical transcripts.
