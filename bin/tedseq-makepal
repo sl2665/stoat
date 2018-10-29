@@ -53,7 +53,9 @@ samtools view $BAM | awk '!and($2,16) {
 		next;
 	}
 	{
-		if($6~/[0-9]+S$/) {n=split($6,a,"M"); print $0 > "_tedseq_tmp/_sam." a[n] ".tmp";}
+		if($6~/[0-9]+S$/) {n=split($6,a,"M");
+			outfile = "_tedseq_tmp/_sam." a[n] ".tmp";
+			print $0 > outfile;}
 		else {print $0 > "_tedseq_tmp/_sam.0S.tmp";}
 	}'
 for f in _tedseq_tmp/_sam.*S.tmp; do
