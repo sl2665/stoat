@@ -149,12 +149,9 @@ Options:
 ```
 Output: bed6 format of supported gene annotations
 
-### stoat-getdge
+### stoat-getget
 ```
-Usage: stoat-getdge [options] -p <proseq-getexpr file> -t <tedseq-getexpr file> -p <tedseq-makepal file>
-Options:
-        -bp     PRO-seq bam file for read count normalization (default = NA)
-        -bt     TED-seq bam file for read count normalization (default = NA)
+Usage: stoat-getget -p <proseq-getexpr file> -t <tedseq-getexpr file> -p <tedseq-makepal file>
 ```
 Output: reports
 1. Gene ID/name in annotated bed file
