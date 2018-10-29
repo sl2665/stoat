@@ -45,7 +45,9 @@ done
 
 samtools view -H $BAM > _tedseq_tmp/_sam.header.tmp
 samtools view $BAM | awk '!and($2,16) {
-		if($6~/^[0-9]+S/) {split($6,a,"S"); print $0 > "_tedseq_tmp/_sam." a[1] "S.tmp";}
+		if($6~/^[0-9]+S/) {
+			split($6,a,"S");
+			print $0 > "_tedseq_tmp/_sam." a[1] "S.tmp";}
 		else {print $0 > "_tedseq_tmp/_sam.0S.tmp";}
 		next;
 	}
