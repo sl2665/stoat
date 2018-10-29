@@ -36,12 +36,20 @@ PATH=$PATH:/(your)/(installation)/(directory)/bin
 
 ## Quickstart
 ```
-cd example
-proseq-align -f PROseq.chr22.fastq -r <human reference genome>
-proseq-make-dREG -p proseq.out -s <dREG SVM RData> > proseq.dREG.bed
+proseq-align -f PROseq.chr22.fastq -r (human reference genome)
+proseq-make-dREG -p proseq.out -s (dREG SVM RData) > proseq.dREG.bed
 proseq-hmm -p proseq.out -mp mappability.chr22.bedgraph > proseq.hmm.bed
 proseq-getexpr -p proseq.out -g GencodeComprehensiveV26-hg38.chr22.bed > proseq.expr.txt
 ```
+
+```
+tedseq-align -f TEDseq.chr22.fastq -r (human reference genome)
+tedseq-find3cps -t tedseq.out > tedseq.cps.bed
+tedseq-makepal -t tedseq.out.bam -g GencodeComprehensiveV26-hg38.chr22.bed > tedseq.pal.txt
+tedseq-getexpr -t tedseq.out -g GencodeComprehensiveV26-hg38.chr22.bed > tedseq.expr.txt
+```
+
+
 
 ## Usage
 
@@ -138,7 +146,7 @@ Output: reports a matrix of poly(A) tail length read counts
 
 ### tedseq-getexpr
 ```
-Usage:  tedseq-getexpr [options] -a <TED-seq alignment bam> -b <gene annotation bed12>
+Usage:  tedseq-getexpr [options] -t <TED-seq filename base> -g <gene annotation bed12>
 Options: 
         -w      window size from 3\`end (default = 500)
 ```
