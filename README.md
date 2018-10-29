@@ -35,7 +35,13 @@ PATH=$PATH:/(your)/(installation)/(directory)/bin
 <img src="img/STOAT-FLOWCHART.png" alt="drawing" width="800" />
 
 ## Quickstart
-
+```
+cd example
+proseq-align -f PROseq.chr22.fastq -r <human reference genome>
+proseq-make-dREG -p proseq.out -s <dREG SVM RData> > proseq.dREG.bed
+proseq-hmm -p proseq.out -mp mappability.chr22.bedgraph > proseq.hmm.bed
+proseq-getexpr -p proseq.out -g GencodeComprehensiveV26-hg38.chr22.bed > proseq.expr.txt
+```
 
 ## Usage
 
