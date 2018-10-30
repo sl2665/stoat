@@ -168,7 +168,7 @@ Options:
 ```
 Output: bed6 format of supported gene annotations
 
-### stoat-getget
+### stoat-getdge
 ```
 Usage: stoat-getget -p <proseq-getexpr file> -t <tedseq-getexpr file> -p <tedseq-makepal file>
 ```
@@ -182,4 +182,4 @@ Output: reports
 ## Documentation
 
 ## How to cite
-Lee S.H., Woo Y.M., Kwak H. Stereoptic transcriptome analysis refines functional gene annotation and identifies polyadenylation of atypical transcripts.
+Lee S.H., Woo Y.M., Kwak H. Stereoptic transcriptome analysis refines functional gene annotation and identifies polyadenylation of atypical transcripts.under review.
