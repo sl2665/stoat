@@ -35,13 +35,18 @@ PATH=$PATH:/(your)/(installation)/(directory)/bin
 <img src="img/STOAT-FLOWCHART.png" alt="drawing" width="800" />
 
 ## Quickstart
+In the example directory,
+```
+cd example
+```
+PRO-seq pipeline
 ```
 proseq-align -f PROseq.chr22.fastq -r (human reference genome)
 proseq-make-dREG -p proseq.out -s (dREG SVM RData) > proseq.dREG.bed
 proseq-hmm -p proseq.out -mp mappability.chr22.bedgraph > proseq.hmm.bed
 proseq-getexpr -p proseq.out -g GencodeComprehensiveV26-hg38.chr22.bed > proseq.expr.txt
 ```
-
+TED-seq pipeline
 ```
 tedseq-align -f TEDseq.chr22.fastq -r (human reference genome)
 tedseq-find3cps -t tedseq.out > tedseq.cps.bed
@@ -177,4 +182,4 @@ Output: reports
 ## Documentation
 
 ## How to cite
-Lee S.H., Woo Y.M., Kwak H. (2018). Stereoptic transcriptome analysis refines functional gene annotation and identifies polyadenylation of atypical transcripts.
+Lee S.H., Woo Y.M., Kwak H. Stereoptic transcriptome analysis refines functional gene annotation and identifies polyadenylation of atypical transcripts.
