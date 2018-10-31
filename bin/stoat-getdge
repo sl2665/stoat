@@ -1,35 +1,43 @@
 #!/bin/bash
-# Align PRO-seq to make bam and bedgraph files
+# Generates a dynamic gene expression table (dge)
 
 if [ $# -lt 2 ]; then
-	echo -e "Usage:\t proseq-align [options] -f <fastq> -r <reference genome>"
+	echo -e "Usage:\tstoat-getdge -pro <proseq-getexpr file> -ted <tedseq-getexpr file> -pal <tedseq-makepal file>"
 	echo -e "Options:"
-	echo -e "\t-a\talinger (STAR/BOWTIE; default = STAR)"
-	echo -e "\t-b\toutput filename base (default = proseq.out)"
+    echo -e "\t-win\tPAL window (default = 500)"
+    echo -e "\t-ins\tPAL insert size (default = 250)"
+	echo -e "\t-max\tPAL max length (default = 250)"
 	exit
 fi
 
-SCRIPTDIR="~/Work/shared/script/"
-ALINGER=star
-BASE="proseq.out"
-
+WIN=500
+INS=250
+MAX=250
 while [[ $# -ge 1 ]]; do
 	key="$1"
 	case $key in
-		-a)
-		BAM="$2"
+		-pro)
+		PRO="$2"
 		shift
 		;;
-		-b)
-		BED="$2"
+		-ted)
+		TED="$2"
 		shift
 		;;
-		-bin)
-		BIN="$2"
+		-pal)
+		PAL="$2"
 		shift
 		;;
 		-win)
 		WIN="$2"
+		shift
+		;;
+		-ins)
+		INS="$2"
+		shift
+		;;
+		-max)
+		MAX="$2"
 		shift
 		;;
 		--default)
@@ -40,15 +48,22 @@ while [[ $# -ge 1 ]]; do
 	shift
 done
 
-# Cut out adapter sequences if any
-cutadapt -a TGGAATTCTCGGGTGCCAAGG $1 > "${1%.*}".trim.fastq 
-# Tagging UMI to the sequence ID
-~/Work/shared/script/umi-split-fastq.sh "${1%.*}".trim.fastq
+if [ ! -d _stoat_tmp ]; then
+	mkdir _stoat_tmp
+fi
 
-# Alignemnt to the reference genome
-~/Work/bin/star --genomeDir ~/Work/shared/ref/hg38 --readFilesIn "${1%.*}".trim.UMItag.fastq --outFilterMultimapNmax 1 --runThreadN 8
+awk -v win=${WIN} -v ins=$INS -v max=$MAX '{
+	count=0;sum=0;
+	for(i=win-ins;i<=NF-1&&i<=max+(win-ins);++i) {
+		pos=i-(win-ins);count+=$(i+1);sum+=pos*$(i+1);}
+	if(count==0) print $1"\tNA"; else print $1"\t"sum/count;}' \
+	$PAL > _stoat_tmp/_pal_meanpos.txt
 
-# Collapse same UMIs at the same mapped positions 
-~/Work/shared/script/umi-collapse.sh Aligned.out.sam
+awk 'BEGIN{print "id\tPromoter(RPKM)\tGeneBody(eRPKM)\tExpressionRPKM)\tPAL(mean)";}
+	FNR==1{++fid}
+	fid==1&&FNR>1{pp[$1]=$5;gb[$1]=$6;ex[$1]=$7;next}
+	fid==2{pl[$1]=$2;next}
+	fid==3{print $1"\t"pp[$1]"\t"gb[$1]"\t"$3"\t"pl[$1]}' \
+	$PRO _stoat_tmp/_pal_meanpos.txt $TED
 
-
+rm -rf _stoat_tmp
