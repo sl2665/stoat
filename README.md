@@ -38,6 +38,7 @@ PATH=$PATH:/(your)/(installation)/(directory)/bin
 In the example directory,
 ```
 cd example
+gunzip *.gz
 ```
 PRO-seq pipeline
 ```
