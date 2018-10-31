@@ -53,8 +53,10 @@ tedseq-find3cps -t tedseq.out > tedseq.cps.bed
 tedseq-makepal -t tedseq.out.bam -g GencodeComprehensiveV26-hg38.chr22.bed > tedseq.pal.txt
 tedseq-getexpr -t tedseq.out -g GencodeComprehensiveV26-hg38.chr22.bed > tedseq.expr.txt
 ```
-
-
+Combined analysis pipeline
+```
+stoat-getdge -pro proseq.expr.txt -ted tedseq.expr.txt -pal tedseq.pal.txt -ins 300 > stoat.dge.txt
+```
 
 ## Usage
 
@@ -170,7 +172,11 @@ Output: bed6 format of supported gene annotations
 
 ### stoat-getdge
 ```
-Usage: stoat-getget -p <proseq-getexpr file> -t <tedseq-getexpr file> -p <tedseq-makepal file>
+Usage:  stoat-getdge -pro <proseq-getexpr file> -ted <tedseq-getexpr file> -pal <tedseq-makepal file>
+Options:
+        -win    PAL window (default = 500)
+        -ins    PAL insert size (default = 250)
+        -max    PAL max length (default = 250)
 ```
 Output: reports
 1. Gene ID/name in annotated bed file
