@@ -59,11 +59,11 @@ awk -v win=${WIN} -v ins=$INS -v max=$MAX '{
 	if(count==0) print $1"\tNA"; else print $1"\t"sum/count;}' \
 	$PAL > _stoat_tmp/_pal_meanpos.txt
 
-awk 'BEGIN{print "id\tPromoter(RPKM)\tGeneBody(eRPKM)\tExpressionRPKM)\tPAL(mean)";}
+awk 'BEGIN{print "id\tPromoter\tGeneBody\tExpression\tPAL";}
 	FNR==1{++fid}
 	fid==1&&FNR>1{pp[$1]=$5;gb[$1]=$6;ex[$1]=$7;next}
 	fid==2{pl[$1]=$2;next}
-	fid==3{print $1"\t"pp[$1]"\t"gb[$1]"\t"$3"\t"pl[$1]}' \
+	fid==3&&FNR>1{print $1"\t"pp[$1]"\t"gb[$1]"\t"$3"\t"pl[$1]}' \
 	$PRO _stoat_tmp/_pal_meanpos.txt $TED
 
 rm -rf _stoat_tmp
