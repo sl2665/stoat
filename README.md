@@ -32,7 +32,7 @@ PATH=$PATH:/(your)/(installation)/(directory)/bin
 ```
 
 ## Flowchart
-<img src="img/STOAT.png" alt="drawing" width="800"/>
+<img src="img/STOAT.flow.png" alt="drawing" width="800"/>
 
 ## Quickstart
 In the example directory,
