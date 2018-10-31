@@ -189,4 +189,4 @@ Output: reports
 ## Documentation
 
 ## How to cite
-Lee S.H., Woo Y.M., Kwak H. Stereoscopic transcriptome analysis refines functional gene annotation and identifies polyadenylation of atypical transcripts.under review.
+Lee S.H., Woo Y.M., Kwak H. Stereoscopic transcriptome analysis refines functional gene annotation and identifies polyadenylation of atypical transcripts (under review)
