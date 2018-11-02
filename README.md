@@ -165,11 +165,24 @@ Output: reports
 
 ### stoat-getannot
 ```
-Usage:  stoat-getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3\`CPS bed>
+Usage:  stoat-getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>
 Options:
-        -g      reference gene annotation bed (default = NA)
+        -g      gene assembly bed (default = NA)
+        -cp     dREG distance cut-off (default = 200 bp)
+        -cc     3'CPS distance cut-off (default = 200 bp)
+        -ch     HMM mutual coverage cut-off (default = 80%)
+        -dd     Distance between divergent transcription peaks (default = 150)
 ```
-Output: bed6 format of supported gene annotations
+Output: reports
+1. chromosome
+2. start
+3. end
+4. ID
+5. strand
+6. Transcription unit supported by stoat (TRUE/FALSE)
+7. Distance to PRO-seq promoter
+8. Distance to TED-seq 3'CPS
+9. Fraction of gene body coverage by PRO-seq HMM
 
 ### stoat-getdge
 ```
