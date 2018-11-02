@@ -56,6 +56,7 @@ tedseq-getexpr -t tedseq.out -g GencodeComprehensiveV26-hg38.chr22.bed > tedseq.
 ```
 Combined analysis pipeline
 ```
+stoat-getannot -a proseq.dREG.bed -b proseq.hmm.bed -c tedseq.3cps.bed -g GencodeComprehensiveV26-hg38.chr22.bed > stoat.annot.txt
 stoat-getdge -pro proseq.expr.txt -ted tedseq.expr.txt -pal tedseq.pal.txt -ins 300 > stoat.dge.txt
 ```
 
