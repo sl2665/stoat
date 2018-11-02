@@ -2,34 +2,54 @@
 # Combine dREG, HMM, and 3`CPS data to generate gene annotation
 
 if [ $# -lt 2 ]; then
-	echo -e "Usage:\tstoat-getannot [options] -f <fastq> -r <reference genome>"
+	echo -e "Usage:\tstoat-getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>"
 	echo -e "Options:"
-	echo -e "\t-a\talinger (STAR/BOWTIE; default = STAR)"
-	echo -e "\t-b\toutput filename base (default = proseq.out)"
+    echo -e "\t-g\tgene assembly bed (default = NA)"
+	echo -e "\t-cp\tdREG distance cut-off (default = 200 bp)"
+	echo -e "\t-cc\t3'CPS distance cut-off (default = 200 bp)"
+	echo -e "\t-ch\tHMM mutual coverage cut-off (default = 80%)"
+	echo -e "\t-dd\tDistance between divergent transcription peaks (default = 150)"
 	exit
 fi
 
-SCRIPTDIR="~/Work/shared/script/"
-ALINGER=star
-BASE="proseq.out"
-
+BED="NA"
+CP=200
+CC=200
+CH=80
+DD=150
 while [[ $# -ge 1 ]]; do
 	key="$1"
 	case $key in
 		-a)
-		BAM="$2"
+		DREG="$2"
 		shift
 		;;
 		-b)
+		HMM="$2"
+		shift
+		;;
+		-c)
+		CPS="$2"
+		shift
+		;;
+		-g)
 		BED="$2"
 		shift
 		;;
-		-bin)
-		BIN="$2"
+		-cp)
+		CP="$2"
 		shift
 		;;
-		-win)
-		WIN="$2"
+		-cc)
+		CC="$2"
+		shift
+		;;
+		-ch)
+		CH="$2"
+		shift
+		;;
+		-dd)
+		DD="$2"
 		shift
 		;;
 		--default)
@@ -39,5 +59,52 @@ while [[ $# -ge 1 ]]; do
 	esac
 	shift
 done
+
+if [ ! -d _stoat_tmp ]; then
+	mkdir _stoat_tmp
+fi
+
+if [ ${BED} == "NA" ]; then
+	echo "No assembly file provided"
+	exit
+fi
+
+# Split the provided gene assembly into promoter and 3CPS beds
+awk 'BEGIN{OFS="\t"} $6=="+"{print $1,$2,$2+1,$4,$5,$6;next} {print $1,$3,$3+1,$4,$5,$6}' ${BED} \
+	| sort -k1,1 -k2,2n -k3,3n > _stoat_tmp/_aprom.bed
+awk 'BEGIN{OFS="\t"} $6=="+"{print $1,$3,$3+1,$4,$5,$6;next} {print $1,$2,$2+1,$4,$5,$6}' ${BED} \
+	| sort -k1,1 -k2,2n -k3,3n > _stoat_tmp/_a3cps.bed
+
+# Extract 3'CPS site from the 3CPS bed
+awk 'BEGIN{OFS="\t"} $6=="+"{print $1,$3,$3+1,$4,$5,$6;next} {print $1,$2,$2+1,$4,$5,$6}' ${CPS} \
+	| sort -k1,1 -k2,2n -k3,3n > _stoat_tmp/_3cps.bed 
+
+# Distance to the nearest dREG promoter from the assembled promoter
+bedtools closest -d -a _stoat_tmp/_aprom.bed -b ${DREG} \
+	| awk '{print $4"\t"$12}' \
+	> _stoat_tmp/_prom_dreg_dist.txt
+
+# Distance to the nearest 3'CPS from the assembled 3CPS
+bedtools closest -d -a _stoat_tmp/_a3cps.bed -b _stoat_tmp/_3cps.bed -s \
+	| awk '{print $4"\t"$13}' \
+	> _stoat_tmp/_cps_dist.txt
+
+# Percent coverage of the gene body region by HMM
+awk '$2>0 && $3>=$2 {print}' ${HMM} | sort -k1,1 -k2,2n -k3,3n > _stoat_tmp/_hmm.bed
+bedtools coverage -a ${BED} -b _stoat_tmp/_hmm.bed -s \
+	| awk '{print $4"\t"$16}' \
+	> _stoat_tmp/_mutual_gb.txt
+
+# Collect all data and apply filters
+awk -v cp=${CP} -v cc=${CC} -v ch=${CH} 'BEGIN{
+	print "chr\tstart\tend\tid\tstrand\tstoatTU\tdistdREG\tdistCPS\tdistHMM" }
+	FNR==1{++fid}
+	fid==1{pd[$1]=$2;next}
+	fid==2{cd[$1]=$2;next}
+	fid==3{gh[$1]=$2;next}
+	fid==4{co="FALSE";;
+		if(pd[$4]<=cp && cd[$4]<=cc && gh[$4]>=ch/100) co="TRUE";
+		print $1"\t"$2"\t"$3"\t"$4"\t"$6"\t"co"\t"pd[$4]"\t"cd[$4]"\t"gh[$4]}' \
+	_stoat_tmp/_prom_dreg_dist.txt _stoat_tmp/_cps_dist.txt _stoat_tmp/_mutual_gb.txt ${BED}
 
 
