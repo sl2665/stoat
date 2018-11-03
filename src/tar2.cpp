@@ -50,9 +50,9 @@ int main(int argc, char *argv[])
 {
     if(argc<3)
     {
-        cout<<"arguments:\n-p : plus strand bedgraph\n-m : minus strand bedgraph"<<endl;
-        cout<<"-mp : mappability bedgraph"<<endl;
-        cout<<"-b bin size"<<endl;
+        cerr<<"arguments:\n-p : plus strand bedgraph\n-m : minus strand bedgraph"<<endl;
+        cerr<<"-mp : mappability bedgraph"<<endl;
+        cerr<<"-b bin size"<<endl;
         return 0;
     }
 
@@ -75,7 +75,6 @@ int main(int argc, char *argv[])
     cerr<<pb.load(pfn)<<" lines of plus strand data loaded"<<endl;
     cerr<<mb.load(mfn)<<" lines of minus strand data loaded"<<endl;
     cerr<<mp.load(mpfn)<<" lines of mappability data loaded"<<endl;
-	ofstream out(ofn);
     srand(time(NULL));
 
 	int it=1;
