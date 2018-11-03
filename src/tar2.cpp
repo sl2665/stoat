@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 {
     if(argc<3)
     {
-        cout<<"arguments:\n-o : output\n-p : plus strand bedgraph\n-m : minus strand bedgraph"<<endl;
+        cout<<"arguments:\n-p : plus strand bedgraph\n-m : minus strand bedgraph"<<endl;
         cout<<"-mp : mappability bedgraph"<<endl;
         cout<<"-b bin size"<<endl;
         return 0;
