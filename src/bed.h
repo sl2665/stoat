@@ -31,6 +31,13 @@ struct bedTrack
         ss >> exonCount >> exonSizes >> exonStarts;
         return(true);
     }
+
+	friend std::ostream& operator<<(std::ostream& os, const bedTrack t)
+	{
+		os<<t.chr<<"\t"<<t.start<<"\t"<<t.end<<"\t";
+		os<<t.name<<"\t"<<t.score<<"\t"<<t.strand<<std::endl;
+		return os;
+	}
 };
 
 struct bedFile

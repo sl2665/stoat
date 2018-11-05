@@ -1,0 +1,134 @@
+#!/bin/bash
+# Select genes with unambiguous TSS and 3' ends for elongation time-course treatments
+
+if [ $# -lt 2 ]; then
+	echo -e "Usage:\thmm-select [options] -a <Transcription unit bed> -b <Gene annotation bed> -p <PRO-seq plus bedgraph> -m <PRO-seq minus bedgraph> -mp <mappability bedgraph>"
+	echo -e "Options:"
+	echo -e "\t-co\tread count cut-off (default = 10)"
+	echo -e "\t-dist\tdistance cut-off for divergently paired TUs (default = 2000)"
+	echo -e "\t-len\tmin length for genes (default = 100000)"
+	echo -e "\t-intra\tcut-off for intragenic TSS signals to truncate gene body (default = 0.25)"
+	exit
+fi
+
+CO=10
+DIST=2000
+LEN=100000
+INTRA="0.25"
+while [[ $# -ge 1 ]]; do
+	key="$1"
+	case $key in
+		-a)
+		TU="$2"
+		shift
+		;;
+		-b)
+		REF="$2"
+		shift
+		;;
+		-p)
+		PL="$2"
+		shift
+		;;
+		-m)
+		MN="$2"
+		shift
+		;;
+		-mp)
+		MP="$2"
+		shift
+		;;
+		-co)
+		CO="$2"
+		shift
+		;;
+		-dist)
+		DIST="$2"
+		shift
+		;;
+		-len)
+		LEN="$2"
+		shift
+		;;
+		-intra)
+		INTRA="$2"
+		shift
+		;;
+		--default)
+		;;
+		*)
+		;;
+	esac
+	shift
+done
+
+if [ ! -d _hmm_tmp ]; then
+	mkdir _hmm_tmp
+fi
+
+if false; then
+# Quantify PRO-seq reads in HMM-TUs and find the most probable pause peak
+# Make bed file covering the 5' regions to collect reads 
+awk '{	len=$3-$2;
+		if(len<2000) len=2000; else if(len<5000) len=len;
+		else if(len<15000) len=len/2+2500; else len=10000;
+		if($6=="+") print $1"\t"$2"\t"int($2+len)"\t"$4"\t"$5"\t"$6;
+		else print $1"\t"int($3-len)"\t"$3"\t"$4"\t"$5"\t"$6;}' ${TU} > _hmm_tmp/_tu.ext.bed
+# Find the peak position within 5' region
+findpeak -i _hmm_tmp/_tu.ext.bed -p ${PL} -m ${MN} -res 5 \
+	| sort -k1,1 -k2,2n -k3,3n > _hmm_tmp/_tu.peak.bed
+
+# Identify sense-antisense paired peaks
+awk -v co=${CO} '{split($5,a,":");if(a[2]>co){
+	if($6=="+") print $1"\t"$2"\t"$2+1"\t"$4"\t"$5"\t"$6;
+	else print $1"\t"$3"\t"$3+1"\t"$4"\t"$5"\t"$6}}' _hmm_tmp/_tu.peak.bed \
+	> _hmm_tmp/_TUTSS.bed
+awk -v co=${CO} '{split($5,a,":");peakpos=a[1]; peakread=a[2];
+	if(peakread>co) print $1"\t"peakpos"\t"peakpos+1"\t"$4"\t"$5"\t"$6;}' _hmm_tmp/_tu.peak.bed \
+	> _hmm_tmp/_TUpeak.bed
+cat _hmm_tmp/_TUTSS.bed _hmm_tmp/_TUpeak.bed | sort -k1,1 -k2,2n -k3,3n > _hmm_tmp/_TU.starts.bed
+# Find TU pairs
+bedtools closest -a _hmm_tmp/_TU.starts.bed -b _hmm_tmp/_TU.starts.bed -S -d \
+	| awk -v d=${DIST} '$13<=d' > _hmm_tmp/_TU.dist.tmp
+cut -f4,10 _hmm_tmp/_TU.dist.tmp | sort -k1,1 -k2,2 -u > _hmm_tmp/_TU.pairID.tmp 
+
+# Select annotated TSSs that contain paired TUs.
+awk '$6=="+"{print $1"\t"$2"\t"$2+1"\t"$4"\t"$5"\t"$6;next}
+	{print $1"\t"$3"\t"$3+1"\t"$4"\t"$5"\t"$6}' ${REF} \
+	| sort -k1,1 -k2,2n -k3,3n | awk '$2>0&&$3>0' > _hmm_tmp/_REFTSS.bed
+bedtools closest -a _hmm_tmp/_TU.starts.bed -b _hmm_tmp/_REFTSS.bed -s -d \
+	| awk -v d=${DIST} '$13<=d' > _hmm_tmp/_TU.TSSdist.tmp 
+cut -f4,10 _hmm_tmp/_TU.TSSdist.tmp \
+	| awk 'NR==FNR{a[$1]=1;a[$2]=1;next}a[$1]{print $2}' _hmm_tmp/_TU.pairID.tmp - \
+	> _hmm_tmp/_TSS.divpair.tmp
+awk 'NR==FNR{a[$4]=$0;next}a[$1]{print a[$1]}' ${REF} _hmm_tmp/_TSS.divpair.tmp \
+	> _hmm_tmp/_TSS.divpair.bed
+
+# Annotate 3' end of genes using tar7
+tar7 -p ${PL} -m ${MN} -mp ${MP} -g _hmm_tmp/_TSS.divpair.bed \
+	> _hmm_tmp/_TSS.3end.bed
+fi
+
+# Filter out genes with intragenic initiation sites
+# Truncate the genes at the first significant intragenic initiation site
+# TU peaks greater than 25% of the TSS peak as defined by the divergent/antisense signal
+awk '{split($5,a,":"); print $1"\t"a[1]"\t"a[1]+1"\t"$4"\t"a[2]"\t"$6;}' \
+	_hmm_tmp/_tu.peak.bed | sort -k1,1 -k2,2n -k3,3n -u > _hmm_tmp/_tu.peakpos.bed
+# Get immediate upstream antisense read count
+awk '$3>$2{if($6=="+") print $1"\t"$2"\t"$2+1"\t"$4"\t"$5"\t"$6;
+	 	else print $1"\t"$3"\t"$3+1"\t"$4"\t"$5"\t"$6;}' _hmm_tmp/_TSS.3end.bed \
+	| sort -k1,1 -k2,2n -k3,3n -u > _hmm_tmp/_TSS.3end.sorted.bed
+bedtools closest -a _hmm_tmp/_TSS.3end.sorted.bed -b _hmm_tmp/_tu.peakpos.bed -id -S -D a \
+	| awk -v d=${DIST} '$13>-d{print $1"\t"$2"\t"$3"\t"$4"\t"$11"\t"$6}' \
+	> _hmm_tmp/_TSS.3end.ua.bed
+# Get all downstream antisense peak above intragenic read cuont cut-off
+awk 'NR==FNR{start[$4]=$2;end[$4]=$3;next}
+	{print $1"\t"start[$4]"\t"end[$4]"\t"$4"\t"$5"\t"$6}' _hmm_tmp/_TSS.3end.bed \
+	_hmm_tmp/_TSS.3end.ua.bed > _hmm_tmp/_TSS.3end.ua.full.bed
+bedtools intersect -a _hmm_tmp/_TSS.3end.ua.full.bed -b _hmm_tmp/_tu.peakpos.bed -S -wa -wb \
+	| awk -v co=${INTRA} '$11/$5>co' > _hmm_tmp/_TSS.3.da.txt
+# Cut out region and filter for length
+awk '$6=="+"{print $1"\t"$8"\t"$3"\t"$10"\t"$11"\t"$6;next}
+	{print $1"\t"$2"\t"$9"\t"$10"\t"$11"\t"$6}' _hmm_tmp/_TSS.3.da.txt > _hmm_tmp/_exclude.bed
+bedtools subtract -a _hmm_tmp/_TSS.3end.ua.full.bed -b _hmm_tmp/_exclude.bed -s \
+	| awk -v len=${LEN} '$3-$2>len{print $4}'
