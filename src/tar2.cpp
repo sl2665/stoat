@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     {
         cerr<<"arguments:\n-p : plus strand bedgraph\n-m : minus strand bedgraph"<<endl;
         cerr<<"-mp : mappability bedgraph"<<endl;
-        cerr<<"-b bin size"<<endl;
+        cerr<<"-b : bin size"<<endl;
         return 0;
     }
 
