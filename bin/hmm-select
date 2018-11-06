@@ -66,7 +66,6 @@ if [ ! -d _hmm_tmp ]; then
 	mkdir _hmm_tmp
 fi
 
-if false; then
 # Quantify PRO-seq reads in HMM-TUs and find the most probable pause peak
 # Make bed file covering the 5' regions to collect reads 
 awk '{	len=$3-$2;
@@ -107,7 +106,6 @@ awk 'NR==FNR{a[$4]=$0;next}a[$1]{print a[$1]}' ${REF} _hmm_tmp/_TSS.divpair.tmp 
 # Annotate 3' end of genes using tar7
 tar7 -p ${PL} -m ${MN} -mp ${MP} -g _hmm_tmp/_TSS.divpair.bed \
 	> _hmm_tmp/_TSS.3end.bed
-fi
 
 # Filter out genes with intragenic initiation sites
 # Truncate the genes at the first significant intragenic initiation site
@@ -132,3 +130,5 @@ awk '$6=="+"{print $1"\t"$8"\t"$3"\t"$10"\t"$11"\t"$6;next}
 	{print $1"\t"$2"\t"$9"\t"$10"\t"$11"\t"$6}' _hmm_tmp/_TSS.3.da.txt > _hmm_tmp/_exclude.bed
 bedtools subtract -a _hmm_tmp/_TSS.3end.ua.full.bed -b _hmm_tmp/_exclude.bed -s \
 	| awk -v len=${LEN} '$3-$2>len{print $4}'
+
+rm -rf _hmm_tmp
