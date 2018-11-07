@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     {
         cerr<<"arguments:\n-p : plus strand bedgraph\n-m : minus strand bedgraph"<<endl;
         cerr<<"-mp : mappability bedgraph"<<endl;
-        cerr<<"-b : bin size"<<endl;
+        cerr<<"-b : bin size (default = 1000)"<<endl;
         return 0;
     }
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     char *pfn, *mfn, *ofn, *mpfn;
     char *cfn;
 
-    int bin=1;
+    int bin=1000;
     while(arit<argc)
     {
         if(strcmp(argv[arit],"-o")==0) ofn=argv[arit+1];

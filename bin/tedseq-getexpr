@@ -55,4 +55,4 @@ awk -v range=${RNG} 'BEGIN{print "id\tted\tRPKMted"}
 	{ 	print $1"\t"$2"\t"$2*RPKMfactor*1000/range}' \
 	_tedseq_tmp/_total_rc.tmp _tedseq_tmp/_merge.tmp
 
-#rm -rf _tedseq_tmp
+rm -rf _tedseq_tmp

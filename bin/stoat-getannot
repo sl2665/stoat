@@ -66,6 +66,8 @@ fi
 
 if [ ${BED} == "NA" ]; then
 	echo "No assembly file provided"
+
+
 	exit
 fi
 

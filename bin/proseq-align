@@ -14,7 +14,7 @@ BASE="proseq.out"
 
 if [ ! -d _proseq_tmp ]; then
 	mkdir _proseq_tmp
-	fi
+fi
 
 while [[ $# -ge 1 ]]; do
 	key="$1"
