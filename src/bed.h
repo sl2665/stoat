@@ -23,9 +23,11 @@ struct bedTrack
     int read(std::ifstream& in)
     {
         std::string input;
-        if(!std::getline(in, input)) return(false);
+        if(in.eof()) return(false);
+		if(!std::getline(in, input)) return(false);
         std::stringstream ss(input);
         ss >> chr >> start >> end;
+		if(chr.empty()) return(false);
         ss >> name >> score >> strand;
         ss >> cdsStart >> cdsEnd >> RGB;
         ss >> exonCount >> exonSizes >> exonStarts;
