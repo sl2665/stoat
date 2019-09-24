@@ -73,4 +73,4 @@ bedtools genomecov -ibam ${BASE}.bam -bg -strand + -5 \
 bedtools genomecov -ibam ${BASE}.bam -bg -strand - -5 > ${BASE}.pl.bedgraph
 
 # Remove temporary file directory
-rm -rf _proseq_tmp
+#rm -rf _proseq_tmp

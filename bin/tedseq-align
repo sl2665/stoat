@@ -35,6 +35,10 @@ while [[ $# -ge 1 ]]; do
 		BASE="$2"
 		shift
 		;;
+		--sdir)
+		SDIR="$2"
+		shift
+		;;
 		--default)
 		;;
 		*)
@@ -45,7 +49,7 @@ done
 
 # Tagging UMI to the sequence ID
 
-umi-split-fastq ${FASTQ}
+$SDIR/umi-split-fastq ${FASTQ}
 mv ${FASTQ%.*}.UMItag.fastq _tedseq_tmp/_umitag.fastq
 
 # Alignemnt to the reference genome
@@ -56,12 +60,12 @@ if [ $ALIGNER = "STAR" ]; then
 		--outFileNamePrefix _tedseq_tmp/ 
 fi;
 if [ $ALIGNER = "BOWTIE" ]; then
-	${PATHTOALIGNER}bowtie -v2 -k1 -m2 -p2 ${REF} _tedseq_tmp/_umitag.fastq -S > \
+	bowtie -v2 -k1 -m2 -p2 ${REF} _tedseq_tmp/_umitag.fastq -S > \
 	_tedseq_tmp/Aligned.out.sam
 fi;
 
 # Collapse same UMIs at the same mapped positions 
-umi-collapse _tedseq_tmp/Aligned.out.sam
+$SDIR/umi-collapse _tedseq_tmp/Aligned.out.sam
 mv _tedseq_tmp/Aligned.out.uniqueUMI.bam ${BASE}.bam
 
 # Generate bedgraph files

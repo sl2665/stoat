@@ -1,0 +1,41 @@
+#!/bin/bash
+# Stoat wrapper
+
+# Locate the position of the stoat directory
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+	SDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+	SOURCE="$(readlink "$SOURCE")"
+	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+	# if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+SDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
+echo executing ${SDIR%*/bin}/bin/stoat
+
+key="$1"
+shift
+
+case $key in
+	make-pro)
+	echo proseq-make.sh $*
+	;;
+	make-ted)
+	$SDIR/tedseq-make.sh $* --sdir $SDIR
+	;;
+	getqc)
+	echo stoat-getqc.sh $*
+	;;
+	*)
+		echo -e ""
+		echo -e "stoat:   stereoscopic analysis of the transcriptome using PRO-seq and TED-seq"
+		echo -e "version: 0.1.190924"
+		echo -e ""
+		echo -e "usage:   stoat <command> [options]"
+		echo -e ""
+		echo -e "command: make-pro    process PRO-seq data"
+		echo -e "         make-ted    process TED-seq data"
+		echo -e "         getqc      generate quality control figures"
+		echo -e ""
+	;;
+esac

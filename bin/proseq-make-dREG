@@ -50,10 +50,10 @@ samtools view -H ${PROBASE}.bam | grep @SQ |
 
 # Convert the bedgraph files to bigwig files
 bedGraphToBigWig ${PROBASE}.pl.bedgraph _dREG_tmp/chrInfo.txt _dREG_tmp/pl.bw
-awk '{print $1"\t"$2"\t"$3"\t"-1*$4}' ${PROBASE}.mn.bedgraph > _dREG_tmp/mn.bedgraph
+awk '{print $1"\t"$2"\t"$3"\t"$4*(-1)}' ${PROBASE}.mn.bedgraph > _dREG_tmp/mn.bedgraph
 bedGraphToBigWig _dREG_tmp/mn.bedgraph _dREG_tmp/chrInfo.txt _dREG_tmp/mn.bw
 
 # Run dREG score prediction solution
 bash run_predict.bsh _dREG_tmp/pl.bw _dREG_tmp/mn.bw _dREG_tmp/out ${SVM} ${CPU} ${GPU} 
 gunzip -c _dREG_tmp/out.bedGraph.gz
-rm -rf _dREG_tmp
+#rm -rf _dREG_tmp

@@ -76,4 +76,4 @@ awk -v range=${RNG} 'BEGIN{print "id\tpp\tgb\tex\tRPKMpp\teRPKMgb\teRPKMex"}
 		print $7*eRPKMfactor*1000/$2"\t"$9*eRPKMfactor*1000/$3}' \
 		_proseq_tmp/_total_readcount.tmp _proseq_tmp/_merge.tmp
 
-rm -rf _proseq_tmp
+# rm -rf _proseq_tmp
