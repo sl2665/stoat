@@ -6,7 +6,7 @@ if [ $# -lt 2 ]; then
 	echo -e "Options:"
 	echo -e "\t-c\tRaw read count cut-off (default = 5 reads)"
 	echo -e "\t-b\tBin size/resolution (default = 5 bp)"
-	echo -e "\t-s\tLibrary insert size (default = 250 bp)"
+	echo -e "\t-s\tLibrary insert size (default = 300 bp)"
 	echo -e "\t-m\tMedian poly(A) tail length (default = 75 bp)"
 	exit
 fi
@@ -14,7 +14,7 @@ fi
 CUTOFF=5
 BIN=5
 MPAL=75
-SIZE=250
+SIZE=300
 
 if [ ! -d _tedseq_tmp ]; then
 	mkdir _tedseq_tmp
@@ -43,6 +43,10 @@ while [[ $# -ge 1 ]]; do
 		MPAL="$2"
 		shift
 		;;
+		--sdir)
+		SDIR="$2"
+		shift
+		;;
 		--default)
 		;;
 		*)
@@ -52,8 +56,8 @@ while [[ $# -ge 1 ]]; do
 done
 
 # Make binned bedgraph
-bgbin -a ${TED}.pl.bedgraph -bin ${BIN} > _tedseq_tmp/_pl.bg
-bgbin -a ${TED}.mn.bedgraph -bin ${BIN} | awk '{print $1"\t"$2"\t"$3"\t"$4*-1}' \
+$SDIR/bgbin -a ${TED}.pl.bedgraph -bin ${BIN} > _tedseq_tmp/_pl.bg
+$SDIR/bgbin -a ${TED}.mn.bedgraph -bin ${BIN} | awk '{print $1"\t"$2"\t"$3"\t"$4*-1}' \
 	> _tedseq_tmp/_mn.bg
 
 # Find all bins > CUTOFF reads extend by +- MPAL, save as bed format

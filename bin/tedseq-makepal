@@ -35,6 +35,10 @@ while [[ $# -ge 1 ]]; do
 		WIN="$2"
 		shift
 		;;
+		--sdir)
+		SDIR="$2"
+		shift
+		;;
 		--default)
 		;;
 		*)
@@ -72,7 +76,7 @@ for f in _tedseq_tmp/_bam.*S.tmp; do
 done
 
 # Generate last window size bed file with 1 base extension of the blocks
-bed12toend3 $BED $WIN | sort -k1,1 -k2,2n | \
+$SDIR/bed12toend3 $BED $WIN | sort -k1,1 -k2,2n | \
 awk '{split($11,exonSizes,",");split($12,exonStarts,",");exonCount=$10;A="";B="";
 	if($6=="+") {
 		for(i=exonCount;i>1;--i) {
@@ -93,10 +97,10 @@ awk '{split($11,exonSizes,",");split($12,exonStarts,",");exonCount=$10;A="";B=""
 for f in _tedseq_tmp/_bg.pl.*S.tmp; do
 	outsuf=${f#_tedseq_tmp/_bg.pl.*}
 	if [ -s _tedseq_tmp/_bg.pl.$outsuf ] && [ -s _tedseq_tmp/_bed.500.pl.tmp ]; then
-		bgmatrix -a _tedseq_tmp/_bed.500.pl.tmp -b _tedseq_tmp/_bg.pl.$outsuf -split -bin 1 > _tedseq_tmp/_mat.pl.$outsuf 
+		$SDIR/bgmatrix -a _tedseq_tmp/_bed.500.pl.tmp -b _tedseq_tmp/_bg.pl.$outsuf -split -bin 1 > _tedseq_tmp/_mat.pl.$outsuf 
 	fi
 	if [ -s _tedseq_tmp/_bg.mn.$outsuf ] && [ -s _tedseq_tmp/_bed.500.mn.tmp ]; then
-		bgmatrix -a _tedseq_tmp/_bed.500.mn.tmp -b _tedseq_tmp/_bg.mn.$outsuf -split -bin 1 > _tedseq_tmp/_mat.mn.$outsuf 
+		$SDIR/bgmatrix -a _tedseq_tmp/_bed.500.mn.tmp -b _tedseq_tmp/_bg.mn.$outsuf -split -bin 1 > _tedseq_tmp/_mat.mn.$outsuf 
 	fi
 done
 

@@ -29,6 +29,10 @@ while [[ $# -ge 1 ]]; do
 		RNG="$2"
 		shift
 		;;
+		--sdir)
+		SDIR="$2"
+		shift
+		;;
 		--default)
 		;;
 		*)
@@ -38,7 +42,7 @@ while [[ $# -ge 1 ]]; do
 done
 
 # Last 3' ends within range
-bed12toend3 $BED $RNG | sort -k1,1 -k2,2n > _tedseq_tmp/_end3.bed.tmp
+$SDIR/bed12toend3 $BED $RNG | sort -k1,1 -k2,2n > _tedseq_tmp/_end3.bed.tmp
 
 # Get readcounts
 bedtools map -a _tedseq_tmp/_end3.bed.tmp -b ${TED}.pl.bedgraph -o sum -c 4 -split | cut -f4,6,13 > _tedseq_tmp/_pl.tmp

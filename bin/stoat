@@ -11,8 +11,6 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 SDIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
-echo executing ${SDIR%*/bin}/bin/stoat
-
 key="$1"
 shift
 
@@ -23,19 +21,27 @@ case $key in
 	make-ted)
 	$SDIR/tedseq-make.sh $* --sdir $SDIR
 	;;
+	pap)
+	$SDIR/pap.sh $* --sdir $SDIR
+	;;
 	getqc)
 	echo stoat-getqc.sh $*
 	;;
+	ref3cps)
+	echo new3cps.sh $*
+	;;
 	*)
-		echo -e ""
-		echo -e "stoat:   stereoscopic analysis of the transcriptome using PRO-seq and TED-seq"
-		echo -e "version: 0.1.190924"
-		echo -e ""
-		echo -e "usage:   stoat <command> [options]"
-		echo -e ""
-		echo -e "command: make-pro    process PRO-seq data"
-		echo -e "         make-ted    process TED-seq data"
-		echo -e "         getqc      generate quality control figures"
-		echo -e ""
+		echo -e "" >&2
+		echo -e "stoat:   stereoscopic analysis of the transcriptome using PRO-seq and TED-seq" >&2
+		echo -e "version: 0.1.190924" >&2
+		echo -e "" >&2
+		echo -e "usage:   stoat <command> [options]" >&2
+		echo -e "" >&2
+		echo -e "command: make-pro   process PRO-seq data" >&2
+		echo -e "         make-ted   process TED-seq data" >&2
+		echo -e "         getqc      generate quality control figures" >&2
+		echo -e "         ref3cps    redefine 3CPS in high resolution" >&2
+		echo -e "         pap        generate polyA length profiles" >&2
+		echo -e "" >&2
 	;;
 esac
