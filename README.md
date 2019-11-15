@@ -94,7 +94,25 @@ Output: generates a directory structure\
   * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
   * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
   * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
-  
+
+### prop
+```
+tool:    stoat prop - PRO-seq profile
+version: 0.1.191001
+
+usage:   stoat prop [options] -d <PROseq dirs> -g <gene lists txt>
+
+options:
+         -b   TSS bed files instead of gene list (default = none)
+         -o   output plot file name (default = proout.pdf)
+         -w   width of the output pdf (default = 6)
+         -h   height of the output pdf (default = 4)
+         --sc scaled gene body profile (default = TSS proximal)
+         --de sample/gene group descriptions (default = none)
+         --lg y axis in log scale (default = linear)
+```
+Output: pdf file of PRO-seq profile plots
+<img src="img/pro.out.jpg" alt="drawing" width="800"/>
 
 ## Documentation
 
