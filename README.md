@@ -111,7 +111,7 @@ options:
          --de sample/gene group descriptions (default = none)
          --lg y axis in log scale (default = linear)
 ```
-Output: pdf file of PRO-seq profile plots
+Output: pdf file of PRO-seq profile plots\
 <img src="img/pro.out.jpg" alt="drawing" width="400"/>
 
 ## Documentation
