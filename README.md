@@ -15,7 +15,7 @@ Linux, Mac OS X
 * cutadapt (https://cutadapt.readthedocs.io/en/stable/)
 * STAR or bowtie aligner (https://github.com/alexdobin/STAR/releases or http://bowtie-bio.sourceforge.net/index.shtml)
 * dREG (https://github.com/Danko-Lab/dREG)
-* bedGraphToBigWig (http://hgdownload.soe.ucsc.edu/admin/exe/)
+* bedGraphToBigWig, gtfToGenePred, genePredToBed (http://hgdownload.soe.ucsc.edu/admin/exe/)
 
 These softwares should be accessibile in your PATH
 
@@ -26,13 +26,13 @@ These softwares should be accessibile in your PATH
 cd /(your)/(installation)/(directory)
 make
 ```
-* Add the bin directory to PATH
+* Copy the stoat file to one of your PATH accessible directory
 ```
-PATH=$PATH:/(your)/(installation)/(directory)/bin
+cp /(your)/(installation)/(directory)/bin/stoat ~/.local/bin/ 
 ```
 
 ## Flowchart
-<img src="img/STOAT.flow.png" alt="drawing" width="800"/>
+<img src="img/STOAT.jpg" alt="drawing" width="800"/>
 
 ## Quickstart
 In the example directory,
