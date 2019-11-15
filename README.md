@@ -32,7 +32,7 @@ cp /(your)/(installation)/(directory)/bin/stoat ~/.local/bin/
 ```
 
 ## Flowchart
-<img src="img/stoat.jpg" alt="drawing" width="800"/>
+<img src="img/stoat.jpg" alt="drawing" width="300"/>
 
 ## Quickstart
 In the example directory,
@@ -112,7 +112,7 @@ options:
          --lg y axis in log scale (default = linear)
 ```
 Output: pdf file of PRO-seq profile plots
-<img src="img/pro.out.jpg" alt="drawing" width="800"/>
+<img src="img/pro.out.jpg" alt="drawing" width="400"/>
 
 ## Documentation
 
