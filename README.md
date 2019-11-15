@@ -37,39 +37,51 @@ cp /(your)/(installation)/(directory)/bin/stoat ~/.local/bin/
 ## Quickstart
 In the example directory,
 ```
-cd example
+cd /(your)/(installation)/(directory)/bin/stoat/example
 gunzip *.gz
 ```
 PRO-seq pipeline
 ```
-proseq-align -f PROseq.chr22.fastq -r (human reference genome)
-proseq-make-dREG -p proseq.out -s (dREG SVM RData) > proseq.dREG.bed
-proseq-hmm -p proseq.out -mp mappability.chr22.bedgraph > proseq.hmm.bed
-proseq-getexpr -p proseq.out -g GencodeComprehensiveV26-hg38.chr22.bed > proseq.expr.txt
+stoat make-pro -f PROseq.chr22.fastq -g gencode.v26.annotation.chr22.gtf -r (human reference genome)
 ```
 TED-seq pipeline
 ```
-tedseq-align -f TEDseq.chr22.fastq -r (human reference genome)
-tedseq-find3cps -t tedseq.out > tedseq.cps.bed
-tedseq-makepal -t tedseq.out.bam -g GencodeComprehensiveV26-hg38.chr22.bed > tedseq.pal.txt
-tedseq-getexpr -t tedseq.out -g GencodeComprehensiveV26-hg38.chr22.bed > tedseq.expr.txt
+stoat make-ted -f TEDseq.chr22.fastq -g gencode.v26.annotation.chr22.gtf -r (human reference genome)
 ```
 Combined analysis pipeline
 ```
-stoat-getannot -a proseq.dREG.bed -b proseq.hmm.bed -c tedseq.3cps.bed -g GencodeComprehensiveV26-hg38.chr22.bed > stoat.annot.txt
-stoat-getdge -pro proseq.expr.txt -ted tedseq.expr.txt -pal tedseq.pal.txt -ins 300 > stoat.dge.txt
+
 ```
 
 ## Usage
 
-### proseq-align
+### stoat
 ```
-Usage:   proseq-align [options] -f <fastq> -r <reference genome>
-Options:
-        -a      alinger (STAR/BOWTIE; default = STAR)
-        -b      output filename base (default = proseq.out)
+stoat:   stereoscopic analysis of the transcriptome using PRO-seq and TED-seq
+version: 0.1.190924
+
+usage:   stoat <command> [options]
+
+command: make-pro   process PRO-seq data
+         make-ted   process TED-seq data
+         redef3     redefine 3CPS in high resolution
+         pap        generate polyA length profiles
+         prop       generate PRO-seq profiles
+         elongHMM   calculate PRO-seq elongation rates
 ```
-Output: generates 3 files
+
+### make-pro
+```
+tool:    stoat make-pro
+version: 0.1.191014
+
+usage:   stoat make-pro [options] -f <fastq> -g <gtf> -r <reference genome>
+
+options:
+         -a   aligner (STAR/BOWTIE; default = STAR)
+         -o   output directory (default = proseq.out)
+```
+Output: generates a directory structure
   * \<output filename base>.bam : aligned bam file with unique molecular identifiers collapsed
   * \<output filename base>.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
   * \<output filename base>.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
