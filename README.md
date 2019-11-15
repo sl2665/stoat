@@ -82,10 +82,18 @@ options:
          -o   output directory (default = proseq.out)
 ```
 Output: generates a directory structure
-  * \<output filename base>.bam : aligned bam file with unique molecular identifiers collapsed
-  * \<output filename base>.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
-  * \<output filename base>.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
-         
+  (output directory)/
+  ├── alignment
+  │   ├── a.bam
+  │   ├── a.mn.bedgraph
+  │   └── a.pl.bedgraph
+  ├── annotation
+  │   └── transcripts.bed13
+  └── sample_info.txt
+  * /alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
+  * /alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
+  * /alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
+  
 
 ## Documentation
 
