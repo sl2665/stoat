@@ -69,6 +69,7 @@ command: make-pro   process PRO-seq data
          prop       generate PRO-seq profiles
          elongHMM   calculate PRO-seq elongation rates
 ```
+Wrapper for stoat commands
 
 ### make-pro
 ```
