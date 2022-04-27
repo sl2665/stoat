@@ -170,15 +170,25 @@ options:
 
 ### getdge
 ```
+tool:    stoat getdge
+version: 0.1.191114
+
 Usage:	stoat-getdge -pro <proseq-getexpr file> -ted <tedseq-getexpr file> -pal <tedseq-makepal file>
+
 Options:
 	-win	PAL window (default = 500)
 	-ins	PAL insert size (default = 250)
 	-max	PAL max length (default = 250)         
-```  
-	
-### getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>
-```         
+
+```
+
+### getannot 
+```   
+tool:    stoat getannot
+version: 0.1.191114
+
+Usage: stoat-getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>
+
 Options:
 	-g	gene assembly bed (default = NA)
 	-cp	dREG distance cut-off (default = 200 bp)
@@ -186,6 +196,7 @@ Options:
 	-ch	HMM mutual coverage cut-off (default = 80%)
 	-dd	Distance between divergent transcription peaks (default = 150)
        
+``` 
 
 ## How to cite
 Lee S.A., Kwak H. Stereoscopic transcriptome analysis depicts transcriptional and post-transcriptional RNA regulation
