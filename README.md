@@ -153,8 +153,9 @@ options:
          -b   3'CPS junction bam (default = stoat/refdata/HEK)
          -S   antisense strand bam (default = sense strand)
          -fa  reference genome fasta (default = none)
+```
 
-### stoat elongHMM
+### elongHMM
 ```
 tool:    stoat elongHMM
 version: 0.1.191114
@@ -165,7 +166,8 @@ options:
          -bs  Bin size (default = 1000)
          -bc  Bin count (default = 50)
          -out Output file (default = out.elong.txt)
-         
+```
+
 ### stoat-getdge
 ```
 Usage:	stoat-getdge -pro <proseq-getexpr file> -ted <tedseq-getexpr file> -pal <tedseq-makepal file>
@@ -173,7 +175,8 @@ Options:
 	-win	PAL window (default = 500)
 	-ins	PAL insert size (default = 250)
 	-max	PAL max length (default = 250)         
-     
+```  
+	
 ### stoat-getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>
 ```         
 Options:
