@@ -167,6 +167,7 @@ options:
          -out Output file (default = out.elong.txt)
          
 ### stoat-getdge
+```
 Usage:	stoat-getdge -pro <proseq-getexpr file> -ted <tedseq-getexpr file> -pal <tedseq-makepal file>
 Options:
 	-win	PAL window (default = 500)
@@ -174,7 +175,7 @@ Options:
 	-max	PAL max length (default = 250)         
      
 ### stoat-getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>
-         
+```         
 Options:
 	-g	gene assembly bed (default = NA)
 	-cp	dREG distance cut-off (default = 200 bp)
