@@ -96,6 +96,7 @@ Output: generates a directory structure\
   * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
   * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
   * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
+```
 
 ### prop
 ```
@@ -168,7 +169,7 @@ options:
          -out Output file (default = out.elong.txt)
 ```
 
-### stoat-getdge
+### getdge
 ```
 Usage:	stoat-getdge -pro <proseq-getexpr file> -ted <tedseq-getexpr file> -pal <tedseq-makepal file>
 Options:
@@ -177,7 +178,7 @@ Options:
 	-max	PAL max length (default = 250)         
 ```  
 	
-### stoat-getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>
+### getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>
 ```         
 Options:
 	-g	gene assembly bed (default = NA)
