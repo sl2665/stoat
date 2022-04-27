@@ -32,7 +32,7 @@ cp /(your)/(installation)/(directory)/bin/stoat ~/.local/bin/
 ```
 
 ## Flowchart
-<img src="img/stoat.jpg" alt="drawing" width="500"/>
+<img src="img/stoat_flow.png" alt="drawing" width="500"/>
 
 ## Quickstart
 In the example directory,
