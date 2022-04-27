@@ -1,7 +1,7 @@
 # stoat
 **St**ere**o**scopic **a**nalysis of the **t**ranscriptome using PRO-seq and TED-seq
 
-## Summary <img src="img/stoat.png" alt="drawing" width="500" align="right"/>
+## Summary <img src="img/stoat.png" alt="drawing" width="500" align="left"/>
 Stereoscopic transcriptome analysis that adds dynamics-perception using binocular perspectives of the static transcriptome; transcription rate and polyadenylation status. Transcription rate, measured by nascent RNA sequencing (PRO-seq), reflects the RNA synthesis level. Poly(A) tail length (PAL), measured by TED-seq, reflects the quality of the RNA, and is associated with translation and decay status. The starts and the ends of transcripts can be mapped using PRO-seq and TED-seq to re-define high-confidence annotation including novel transcripts. Transcriptional and post-transcriptional expression analysis identifies dynamically regulated transcripts.
 
 ## Installation
@@ -32,7 +32,7 @@ cp /(your)/(installation)/(directory)/bin/stoat ~/.local/bin/
 ```
 
 ## Flowchart
-<img src="img/stoat_flow.png" alt="drawing" width="500"/>
+<img src="img/stoat_flow.png" alt="drawing" width="700"/>
 
 ## Quickstart
 In the example directory,
