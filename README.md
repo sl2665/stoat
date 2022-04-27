@@ -116,7 +116,55 @@ options:
 Output: pdf file of PRO-seq profile plots\
 <img src="img/pro.out.jpg" alt="drawing" width="400"/>
 
-## Documentation
+### make-ted
+```
+tool:    stoat make-ted
+version: 0.1.190924
+
+usage:   stoat make-ted [options] -f <fastq> -g <gtf> -r <reference genome>
+
+options:
+         -a   aligner (STAR/BOWTIE; default = STAR)
+         -o   output directory (default = tedseq.out)
+```
+Output: generates a directory structure\
+```
+(output directory)/
+  ├── alignment
+  │   ├── a.bam
+  │   ├── a.mn.bedgraph
+  │   └── a.pl.bedgraph
+  ├── annotation
+  │   └── transcripts.bed13
+  └── sample_info.txt
+```
+  * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
+  * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
+  * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
+  
+### stoat redef3
+```
+tool:    stoat redef3
+version: 0.1.191018
+
+usage:   stoat redef3 [options] -d <TEDseq dir>
+
+options:
+         -b   3'CPS junction bam (default = stoat/refdata/HEK)
+         -S   antisense strand bam (default = sense strand)
+         -fa  reference genome fasta (default = none)
+
+### stoat elongHMM
+```
+tool:    stoat elongHMM
+version: 0.1.191114
+
+usage:   stoat elongHMM [options] -f <Clearance PRO-seq dir> -b <Baseline PRO-seq dir>
+
+options:
+         -bs  Bin size (default = 1000)
+         -bc  Bin count (default = 50)
+         -out Output file (default = out.elong.txt)
 
 ## How to cite
 Lee S.A., Kwak H. Stereoscopic transcriptome analysis depicts transcriptional and post-transcriptional RNA regulation
