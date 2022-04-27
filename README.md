@@ -50,7 +50,7 @@ stoat make-ted -f TEDseq.chr22.fastq -g gencode.v26.annotation.chr22.gtf -r (hum
 ```
 Combined analysis pipeline
 ```
-
+stoat-getannot -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>
 ```
 
 ## Usage
@@ -165,6 +165,23 @@ options:
          -bs  Bin size (default = 1000)
          -bc  Bin count (default = 50)
          -out Output file (default = out.elong.txt)
+         
+### stoat-getdge
+Usage:	stoat-getdge -pro <proseq-getexpr file> -ted <tedseq-getexpr file> -pal <tedseq-makepal file>
+Options:
+	-win	PAL window (default = 500)
+	-ins	PAL insert size (default = 250)
+	-max	PAL max length (default = 250)         
+     
+### stoat-getannot [options] -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>
+         
+Options:
+	-g	gene assembly bed (default = NA)
+	-cp	dREG distance cut-off (default = 200 bp)
+	-cc	3'CPS distance cut-off (default = 200 bp)
+	-ch	HMM mutual coverage cut-off (default = 80%)
+	-dd	Distance between divergent transcription peaks (default = 150)
+       
 
 ## How to cite
 Lee S.A., Kwak H. Stereoscopic transcriptome analysis depicts transcriptional and post-transcriptional RNA regulation
