@@ -199,6 +199,6 @@ Options:
        
 ``` 
 
-## How to cite <img src="img/stoat_animal.png" alt="drawing" width="100" align="right"/>
+## How to cite <img src="img/stoat_animal.png" alt="drawing" width="100" align="left"/>
 
 Lee S.A., Kwak H. Stereoscopic transcriptome analysis depicts transcriptional and post-transcriptional RNA regulation
