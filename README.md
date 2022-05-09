@@ -201,3 +201,4 @@ Options:
 
 ## How to cite
 Lee S.A., Kwak H. Stereoscopic transcriptome analysis depicts transcriptional and post-transcriptional RNA regulation
+<img src="img/stoat.png" alt="drawing" width="500" align="left"/>
