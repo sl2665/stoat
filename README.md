@@ -79,6 +79,7 @@ options:
          -o   output directory (default = proseq.out)
 ```
 Processes the raw PRO-seq fastq data.
+
 Output: generates a directory structure
 ```
 (output directory)
