@@ -78,7 +78,7 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = proseq.out)
 ```
-Processes the raw PRO-seq fastq data.
+Processes raw PRO-seq fastq data.
 
 Output: generates a directory structure
 ```
@@ -111,7 +111,9 @@ options:
          --de sample/gene group descriptions (default = none)
          --lg y axis in log scale (default = linear)
 ```
-Output: pdf file of PRO-seq profile plots\
+Generates various PRO-seq profile plots. 
+
+Output: pdf file of PRO-seq profile plots
 <img src="img/pro.out.jpg" alt="drawing" width="400"/>
 
 ### make-ted
