@@ -114,6 +114,7 @@ options:
 Generates various PRO-seq profile plots. 
 
 Output: pdf file of PRO-seq profile plots
+
 <img src="img/pro.out.jpg" alt="drawing" width="400"/>
 
 ### make-ted
@@ -127,7 +128,9 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = tedseq.out)
 ```
-Output: generates a directory structure\
+
+
+Output: generates a directory structure
 ```
 (output directory)/
   ├── alignment
@@ -139,8 +142,8 @@ Output: generates a directory structure\
   └── sample_info.txt
 ```
   * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
-  * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
-  * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
+  * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
+  * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
   
 ### redef3
 ```
