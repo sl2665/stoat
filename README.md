@@ -8,14 +8,13 @@ Stereoscopic transcriptome analysis that adds dynamics-perception using binocula
 ## Installation
 
 ### Supported OS
-Linux, Mac OS X
+Linux (Ubuntu), Mac OS X
 
 ### Prerequisites
 * samtools (http://www.htslib.org/)
 * bedtools (https://bedtools.readthedocs.io/en/latest/)
 * cutadapt (https://cutadapt.readthedocs.io/en/stable/)
 * STAR or bowtie aligner (https://github.com/alexdobin/STAR/releases or http://bowtie-bio.sourceforge.net/index.shtml)
-* dREG (https://github.com/Danko-Lab/dREG)
 * bedGraphToBigWig, gtfToGenePred, genePredToBed (http://hgdownload.soe.ucsc.edu/admin/exe/)
 
 These softwares should be accessibile in your PATH
