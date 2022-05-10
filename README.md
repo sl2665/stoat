@@ -48,10 +48,6 @@ TED-seq pipeline
 ```
 stoat make-ted -f TEDseq.chr22.fastq -g gencode.v26.annotation.chr22.gtf -r (human reference genome)
 ```
-Combined analysis pipeline
-```
-stoat-getannot -a <dREG bedgraph> -b <PRO-seq HMM TAR bed> -c <3'CPS bed>
-```
 
 ## Usage
 
@@ -69,7 +65,7 @@ command: make-pro   process PRO-seq data
          prop       generate PRO-seq profiles
          elongHMM   calculate PRO-seq elongation rates
 ```
-Wrapper for stoat commands
+This is a wrapper for all stoat commands. Available commands are described below.
 
 ### make-pro
 ```
