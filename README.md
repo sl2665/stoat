@@ -78,9 +78,10 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = proseq.out)
 ```
-Output: generates a directory structure\
+Processes the raw PRO-seq fastq data.
+Output: generates a directory structure
 ```
-(output directory)/
+(output directory)
   ├── alignment
   │   ├── a.bam
   │   ├── a.mn.bedgraph
