@@ -142,6 +142,11 @@ Output: generates a directory structure
   │   └── a.pl.bedgraph
   ├── annotation
   │   └── transcripts.bed13
+  ├── table
+  │   ├── expression.txt
+  │   └── palmatrix.txt
+  ├── Rdata
+  │   └── PALdata.rds
   └── sample_info.txt
 ```
 * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
