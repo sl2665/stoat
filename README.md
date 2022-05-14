@@ -83,9 +83,9 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = proseq.out)
 ```
-Processes raw PRO-seq fastq data. 
+Processes raw PRO-seq fastq data. First 8 bases of PRO-seq reads are unique molecular identifiers (UMIs). Make-pro aligns raw reads to the reference genome provided, and collapses duplicate reads with identical UMIs. Make-pro also generates a table of PRO-seq expression.
 
-Input:
+Other inputs
 * \<reference genome\> pre-assembled reference genome index
 * \<gtf\> gene annotation in gtf format.
 
@@ -105,6 +105,7 @@ Output: generates a directory structure
 * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
 * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
+* (output directory)/table/expression.txt : table of various PRO-seq gene expression counts (raw and normalized). 
 
 
 ### stoat make-ted
@@ -139,6 +140,21 @@ Output: generates a directory structure
 * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
 * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
 
+
+  
+### redef3
+```
+tool:    stoat redef3
+version: 0.1.191018
+
+usage:   stoat redef3 [options] -d <TEDseq dir>
+
+options:
+         -b   3'CPS junction bam (default = stoat/refdata/HEK)
+         -S   antisense strand bam (default = sense strand)
+         -fa  reference genome fasta (default = none)
+```
+	
 ### prop
 ```
 tool:    stoat prop - PRO-seq profile
@@ -161,47 +177,6 @@ Output: pdf file of PRO-seq profile plots
 
 <img src="img/pro.out.jpg" alt="drawing" width="400"/>
 
-### make-ted
-```
-tool:    stoat make-ted
-version: 0.1.190924
-
-usage:   stoat make-ted [options] -f <fastq> -g <gtf> -r <reference genome>
-
-options:
-         -a   aligner (STAR/BOWTIE; default = STAR)
-         -o   output directory (default = tedseq.out)
-```
-
-
-Output: generates a directory structure
-```
-(output directory)/
-  ├── alignment
-  │   ├── a.bam
-  │   ├── a.mn.bedgraph
-  │   └── a.pl.bedgraph
-  ├── annotation
-  │   └── transcripts.bed13
-  └── sample_info.txt
-```
-* (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
-* (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
-* (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
-  
-### redef3
-```
-tool:    stoat redef3
-version: 0.1.191018
-
-usage:   stoat redef3 [options] -d <TEDseq dir>
-
-options:
-         -b   3'CPS junction bam (default = stoat/refdata/HEK)
-         -S   antisense strand bam (default = sense strand)
-         -fa  reference genome fasta (default = none)
-```
-
 ### elongHMM
 ```
 tool:    stoat elongHMM
@@ -214,7 +189,7 @@ options:
          -bc  Bin count (default = 50)
          -out Output file (default = out.elong.txt)
 ```
-
+<!--
 ### getdge
 ```
 tool:    stoat getdge
@@ -244,7 +219,8 @@ Options:
 	-dd	Distance between divergent transcription peaks (default = 150)
        
 ``` 
-
+-->
+	
 ## How to cite <img src="img/stoat_animal.png" alt="drawing" width="100" align="left"/>
 
 Lee S.A., Kwak H. Stereoscopic transcriptome analysis depicts transcriptional and post-transcriptional RNA regulation
