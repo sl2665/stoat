@@ -106,14 +106,15 @@ Output: generates a directory structure
 * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/table/expression.txt : table of PRO-seq gene expression counts (raw and normalized)
-> Column descriptions
-	id: trasncript id (ENST)
-	pp: promoter proximal raw read count (TSS to +500)
-	gb: gene body raw read coverage (reads at the same positions are regarded as duplicates)
-	ex: raw read counts on exons (comparable to RNA-seq quantification)
-	RPKMpp: normalized promoter proximal read count (Reads per kilobase per million mapped reads)
-	eRPKMgb: normalized gene body read count (effective RPKM, RPKM of read coverage converted by count/coverage factor)
-	eRPKMex: normalized exon read count (effective RPKM)
+
+Column description of PRO-seq expression table
+* id: trasncript id (ENST)
+* pp: promoter proximal raw read count (TSS to +500)
+* gb: gene body raw read coverage (reads at the same positions are regarded as duplicates)
+* ex: raw read counts on exons (comparable to RNA-seq quantification)
+* RPKMpp: normalized promoter proximal read count (Reads per kilobase per million mapped reads)
+* eRPKMgb: normalized gene body read count (effective RPKM, RPKM of read coverage converted by count/coverage factor)
+* eRPKMex: normalized exon read count (effective RPKM)
 
 ### stoat make-ted
 ```
