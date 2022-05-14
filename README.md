@@ -86,7 +86,7 @@ options:
 Processes raw PRO-seq fastq data. 
 
 Input:
-* &ltreference genome&gt pre-assembled reference genome index
+* \<reference genome\> pre-assembled reference genome index
 * <gtf> gene annotation in gtf format.
 
 Output: generates a directory structure
