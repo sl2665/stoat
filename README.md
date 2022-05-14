@@ -105,7 +105,8 @@ Output: generates a directory structure
 * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
 * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
-* (output directory)/table/expression.txt : table of PRO-seq gene expression counts (raw and normalized). 
+* (output directory)/table/expression.txt : table of PRO-seq gene expression counts (raw and normalized)
+** Columns
 
 
 ### stoat make-ted
