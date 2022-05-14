@@ -106,7 +106,7 @@ Output: generates a directory structure
 * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/table/expression.txt : table of PRO-seq gene expression counts (raw and normalized)
-	Column descriptions
+> Column descriptions
 	id: trasncript id (ENST)
 	pp: promoter proximal raw read count (TSS to +500)
 	gb: gene body raw read coverage (reads at the same positions are regarded as duplicates)
