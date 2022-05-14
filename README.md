@@ -62,6 +62,8 @@ usage:   stoat <command> [options]
 
 command: make-pro   process PRO-seq data
          make-ted   process TED-seq data
+         align-ted2 align TED2 data
+         make-ted2  process TED2 data
          redef3     redefine 3CPS in high resolution
          pap        generate polyA length profiles
          prop       generate PRO-seq profiles
@@ -69,7 +71,8 @@ command: make-pro   process PRO-seq data
 ```
 This is a wrapper for all stoat commands. Available commands are described below.
 
-### make-pro
+
+### stoat make-pro
 ```
 tool:    stoat make-pro
 version: 0.1.191014
@@ -81,6 +84,10 @@ options:
          -o   output directory (default = proseq.out)
 ```
 Processes raw PRO-seq fastq data.
+
+Input:
+* <reference genome> pre-assembled reference genome index
+* <gtf> gene annotation in gtf format.
 
 Output: generates a directory structure
 ```
@@ -96,6 +103,39 @@ Output: generates a directory structure
 * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
 * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
+
+
+### stoat make-ted
+```
+tool:    stoat make-ted
+version: 0.1.190924
+
+usage:   stoat make-ted [options] -f <fastq> -g <gtf> -r <reference genome>
+
+options:
+         -a   aligner (STAR/BOWTIE; default = STAR)
+         -o   output directory (default = tedseq.out)
+```
+Processes raw TED-seq fastq data
+
+Input:
+* <reference genome> pre-assembled reference genome index
+* <gtf> gene annotation in gtf format.
+
+Output: generates a directory structure
+```
+(output directory)/
+  ├── alignment
+  │   ├── a.bam
+  │   ├── a.mn.bedgraph
+  │   └── a.pl.bedgraph
+  ├── annotation
+  │   └── transcripts.bed13
+  └── sample_info.txt
+```
+* (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
+* (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
+* (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
 
 ### prop
 ```
@@ -143,9 +183,9 @@ Output: generates a directory structure
   │   └── transcripts.bed13
   └── sample_info.txt
 ```
-  * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
-  * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
-  * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
+* (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
+* (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
+* (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
   
 ### redef3
 ```
