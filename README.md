@@ -83,7 +83,7 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = proseq.out)
 ```
-Processes raw PRO-seq fastq data. First 8 bases of PRO-seq reads are unique molecular identifiers (UMIs). Make-pro aligns raw reads to the reference genome provided, collapses duplicate reads with identical UMIs, and generates a table of PRO-seq read counts at gene regions.
+Processes raw PRO-seq fastq data. First 8 bases of PRO-seq reads are unique molecular identifiers (UMIs). Make-pro aligns raw reads to the reference genome provided, collapses duplicate reads with identical UMIs, and generates a table of PRO-seq read counts at gene regions. 
 
 Other inputs
 * \<reference genome\> pre-assembled reference genome index
@@ -106,8 +106,14 @@ Output: generates a directory structure
 * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/table/expression.txt : table of PRO-seq gene expression counts (raw and normalized)
-- Columns
-
+	Column descriptions
+	id: trasncript id (ENST)
+	pp: promoter proximal raw read count (TSS to +500)
+	gb: gene body raw read coverage (reads at the same positions are regarded as duplicates)
+	ex: raw read counts on exons (comparable to RNA-seq quantification)
+	RPKMpp: normalized promoter proximal read count (Reads per kilobase per million mapped reads)
+	eRPKMgb: normalized gene body read count (effective RPKM, RPKM of read coverage converted by count/coverage factor)
+	eRPKMex: normalized exon read count (effective RPKM)
 
 ### stoat make-ted
 ```
