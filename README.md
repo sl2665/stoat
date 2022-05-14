@@ -83,7 +83,7 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = proseq.out)
 ```
-Processes raw PRO-seq fastq data.
+Processes raw PRO-seq fastq data. 
 
 Input:
 * <reference genome> pre-assembled reference genome index
@@ -98,6 +98,8 @@ Output: generates a directory structure
   │   └── a.pl.bedgraph
   ├── annotation
   │   └── transcripts.bed13
+  ├── table
+  │   └── expression.txt
   └── sample_info.txt
 ```
 * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
@@ -116,7 +118,7 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = tedseq.out)
 ```
-Processes raw TED-seq fastq data
+Processes raw TED-seq fastq data.
 
 Input:
 * <reference genome> pre-assembled reference genome index
