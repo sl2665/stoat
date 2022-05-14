@@ -93,9 +93,9 @@ Output: generates a directory structure
   │   └── transcripts.bed13
   └── sample_info.txt
 ```
-  * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
-  * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
-  * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
+* (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
+* (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
+* (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
 
 ### prop
 ```
