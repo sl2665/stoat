@@ -130,6 +130,7 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = tedseq.out)
 ```
+<img src="img/TEDseq_schematics.png" alt="drawing" width="500" align="left"/>
 Processes raw TED-seq fastq data. Make-ted aligns TED-seq reads, generates expression and poly(A) tail length tables. Poly(A) tail lengths are determined from Library Insert Size (LIS). TED-seq reads that spans across introns are corrected to report corresponding poly(A) tail length positions.
 
 Input
