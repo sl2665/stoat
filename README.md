@@ -198,7 +198,7 @@ options:
          -o   output directory (default = tedseq.out)
          --s  library size (default = 425 bp)
 ```
-Generates TED-seq directory structure identical to make-ted using bam file created by align-ted2 for TED2-seq data. Library size is 
+Generates TED-seq directory structure identical to make-ted using bam file created by align-ted2 for TED2-seq data. For library size (--s), Use final library size including the full TRU-seq primer lengths (e.g. Bioanalyzer peak size).
 
 
 ## redef3
@@ -254,7 +254,7 @@ options:
          --og overlay gene groups (default = false)
 ```
 
-### elongHMM
+## elongHMM
 ```
 tool:    stoat elongHMM
 version: 0.1.191114
