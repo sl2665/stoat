@@ -171,7 +171,7 @@ Column description of /table/expression.txt
 ### Poly(A) tail length distribution matrix
 Description of /table/palmatrix.txt
 - First column: transcript id
-- Next 501 columns: raw reads mapped to position -500 to PAS or poly(A) lengths from LIS - 500 to LIS.
+- Next 501 columns: raw reads mapped to position -500 to PAS (= poly(A) lengths from LIS - 500 to LIS)
 
 
 ## stoat align-ted2
@@ -184,7 +184,7 @@ usage:   stoat align-ted2 [options] -1 <read 1> -2 <read 2> -r <reference genome
 options:
          -o   output filename base (default = ted2.out)
 ```
-
+Alignment pipeline for TED2-seq fastq files. TED2-seq uses paired end reads. Custom sample barcodes are contained in read 1, and UMI is in read 2. Align-ted2 performs sample barcode splitting (e.g. ted2.out.1.bam ... ted2.out.10.bam) and UMI collapsing. Each bam file can be used to generate directory structure compatible with TED-seq pipeline using make-ted2.
 
 
 ## stoat make-ted2
@@ -198,9 +198,10 @@ options:
          -o   output directory (default = tedseq.out)
          --s  library size (default = 425 bp)
 ```
+Generates TED-seq directory structure identical to make-ted using bam file created by align-ted2 for TED2-seq data. Library size is 
 
 
-### redef3
+## redef3
 ```
 tool:    stoat redef3
 version: 0.1.191018
@@ -213,7 +214,7 @@ options:
          -fa  reference genome fasta (default = none)
 ```
 	
-### prop
+## prop
 ```
 tool:    stoat prop - PRO-seq profile
 version: 0.1.191001
@@ -234,6 +235,24 @@ Generates various PRO-seq profile plots.
 Output: pdf file of PRO-seq profile plots
 
 <img src="img/pro.out.jpg" alt="drawing" width="400"/>
+
+## pap
+```
+tool:    stoat pap
+version: 0.1.191018
+
+usage:   stoat pap [options] -d <TEDseq dirs> -g <gene lists txt>
+
+options:
+         -b   3'CPS bed files instead of gene list (default = none)
+         -o   output plot file name (default = palout.pdf)
+         -w   width of the output pdf (default = 6)
+         -h   height of the output pdf (default = 4)
+         --od output data (default = none)
+         --de sample/gene group descriptions (default = none)
+         --os overlay TED-seq data (default = false)
+         --og overlay gene groups (default = false)
+```
 
 ### elongHMM
 ```
