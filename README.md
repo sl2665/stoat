@@ -264,7 +264,8 @@ Use 2 example datasets in mouse embryonic stem cell control and flavopiridol tre
 
 Run
 ```
-stoat prop -d example/mES_baseline example/mES_flavopiridol -b example/mES_baseline/annotation/transcripts.bed13 --sc --lg
+stoat prop -d example/mES_baseline example/mES_flavopiridol \
+    -b example/mES_baseline/annotation/transcripts.bed13 --sc --lg
 ```
 <img src="img/prop_ex2.png" alt="drawing" width="400"/>
 
