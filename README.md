@@ -235,16 +235,29 @@ usage:   stoat prop [options] -d <PROseq dirs> -g <gene lists txt>
 
 options:
          -b   TSS bed files instead of gene list (default = none)
-         -o   output plot file name (default = proout.pdf)
+         -o   output plot file name (default = pro.out.pdf)
          -w   width of the output pdf (default = 6)
          -h   height of the output pdf (default = 4)
          --sc scaled gene body profile (default = TSS proximal)
          --de sample/gene group descriptions (default = none)
          --lg y axis in log scale (default = linear)
 ```
-Generates PRO-seq profile plots. 
+Generates PRO-seq profile plots. Outputs pdf files of PRO-seq profile plots.
 
-Output: pdf file of PRO-seq profile plots
+### Output
+Example 1. PRO-seq profiles near the TSS of listed genes in 2 datasets
+example/genes.txt
+```
+IL17RA
+BCL2L13
+```
+Run
+```
+stoat prop -d example/PROseq_HEK example/PROseq_HeLa -g example/genes.txt
+```
+<img src="img/prop_ex1.png" alt="drawing" width="400"/>
+
+
 
 <img src="img/pro.out.jpg" alt="drawing" width="400"/>
 
