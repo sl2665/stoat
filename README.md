@@ -108,7 +108,8 @@ Generates a directory structure
 * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/table/expression.txt : table of PRO-seq gene expression counts (raw and normalized)
 
-Column description of PRO-seq expression table
+#### PRO-seq expression table
+Column description of /table/expression.txt
 * id: trasncript id (ENST)
 * pp: promoter proximal raw read count (TSS to +500)
 * gb: gene body raw read coverage (reads at the same positions are regarded as duplicates)
@@ -128,7 +129,7 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = tedseq.out)
 ```
-Processes raw TED-seq fastq data. Make-ted aligns TED-seq reads, and generates expression and poly(A) tail length
+Processes raw TED-seq fastq data. Make-ted aligns TED-seq reads, generates expression and poly(A) tail length tables.
 
 Input:
 * <reference genome> pre-assembled reference genome index
@@ -155,8 +156,21 @@ Generates a directory structure
 * (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
 * (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
 * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
+* (output directory)/table/expression.txt : table of TED-seq gene expression counts (raw and normalized)
+* (output directory)/table/medianpal.txt : table of median poly(A) tail lengths 
+* (output directory)/table/palmatrix.txt : matrix of poly(A) tail length distributions
+* (output directory)/Rdata/PALdata.rds : R data object of poly(A) tail length distributions
+	
+#### TED-seq expression table
+Column description of /table/expression.txt
+* id: trasncript id (ENST)
+* ted: raw read count near 3' end (-500 from PAS to PAS)
+* RPKMted: normalized TED-seq read count (Reads per kilobase per million mapped reads)
 
+#### Poly(A) tail length distribution matrix
+Description of /table/palmatrix.txt
 
+	
   
 ### redef3
 ```
