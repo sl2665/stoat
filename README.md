@@ -130,7 +130,7 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = tedseq.out)
 ```
-Processes raw TED-seq fastq data. Make-ted aligns TED-seq reads, generates expression and poly(A) tail length tables. Poly(A) tail lengths are determined from Library Insert Size (LIS)
+Processes raw TED-seq fastq data. Make-ted aligns TED-seq reads, generates expression and poly(A) tail length tables. Poly(A) tail lengths are determined from Library Insert Size (LIS). TED-seq reads that spans across introns are corrected to report corresponding poly(A) tail length positions.
 
 Input
 - \<reference genome\> pre-assembled reference genome index
@@ -213,8 +213,18 @@ options:
          -S   antisense strand bam (default = sense strand)
          -fa  reference genome fasta (default = none)
 ```
+Re-defines 3'CPS based on TED-seq or 3'-seq bam data that contains junction between 3'UTR and poly(A) site. If a 3'CPS junction bam file is not provided, redef3 uses human 3'CPS data in HEK293 cells. If a 3' end junction is not detected, redef3 keeps the 3'CPS (PAS) of the reference annotation. Poly(A) tracks in the sequence may create false 3'CPS-like junctions, and will be removed if reference genome fasta file (-fa) is provided.
 
+### Output
+Creates files under the table directory
+- (output directory)/table/3cps_redef.txt : redefined 3'CPS positions
+- (output directory)/table/medianpal.txt : updated median poly(A) tail length table
 
+### 3'CPS redefinition
+Column description of /table/3cps_redef.txt
+- First column: trasncript id (ENST)
+- Second column: relative position of 3'CPS from annotated PAS.
+- Third column: raw read count at the re-annotated 3'CPS positions.
 
 ## prop
 ```
