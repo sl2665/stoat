@@ -127,7 +127,7 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = tedseq.out)
 ```
-Processes raw TED-seq fastq data.
+Processes raw TED-seq fastq data. Make-ted aligns TED-seq reads, and generates expression and poly(A) tail length
 
 Input:
 * <reference genome> pre-assembled reference genome index
@@ -144,6 +144,7 @@ Output: generates a directory structure
   │   └── transcripts.bed13
   ├── table
   │   ├── expression.txt
+  │   ├── medianpal.txt
   │   └── palmatrix.txt
   ├── Rdata
   │   └── PALdata.rds
