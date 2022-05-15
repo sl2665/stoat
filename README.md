@@ -260,8 +260,13 @@ stoat prop -d example/PROseq_HEK example/PROseq_HeLa -g example/genes.txt
 
 #### Example 2. Scaled average PRO-seq profiles (metagenes) in 2 datasets
 
+Use 2 example datasets in mouse embryonic stem cell control and flavopiridol treated (Jonkers et al, 2014, eLife)
 
-<img src="img/pro.out.jpg" alt="drawing" width="400"/>
+Run
+```
+stoat prop -d example/mES_baseline example/mES_flavopiridol -b example/mES_baseline/annotation/transcripts.bed13 --sc --lg
+```
+<img src="img/prop_ex2.png" alt="drawing" width="400"/>
 
 ## pap
 ```
