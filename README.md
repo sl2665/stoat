@@ -86,8 +86,8 @@ options:
 Processes raw PRO-seq fastq data. First 8 bases of PRO-seq reads are unique molecular identifiers (UMIs). Make-pro aligns raw reads to the reference genome provided, collapses duplicate reads with identical UMIs, and generates a table of PRO-seq read counts at gene regions. 
 
 Other inputs
-* \<reference genome\> pre-assembled reference genome index
-* \<gtf\> gene annotation in gtf format.
+- \<reference genome\> pre-assembled reference genome index
+- \<gtf\> gene annotation in gtf format.
 
 ### Output
 Generates a directory structure
@@ -103,20 +103,20 @@ Generates a directory structure
   │   └── expression.txt
   └── sample_info.txt
 ```
-* (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
-* (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
-* (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
-* (output directory)/table/expression.txt : table of PRO-seq gene expression counts (raw and normalized)
+- (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
+- (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of PRO-seq raw read counts
+- (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
+- (output directory)/table/expression.txt : table of PRO-seq gene expression counts (raw and normalized)
 
 ### PRO-seq expression table
 Column description of /table/expression.txt
-* id: trasncript id (ENST)
-* pp: promoter proximal raw read count (TSS to +500)
-* gb: gene body raw read coverage (reads at the same positions are regarded as duplicates)
-* ex: raw read counts on exons (comparable to RNA-seq quantification)
-* RPKMpp: normalized promoter proximal read count (Reads per kilobase per million mapped reads)
-* eRPKMgb: normalized gene body read count (effective RPKM, RPKM of read coverage converted by count/coverage factor)
-* eRPKMex: normalized exon read count (effective RPKM)
+- id: trasncript id (ENST)
+- pp: promoter proximal raw read count (TSS to +500)
+- gb: gene body raw read coverage (reads at the same positions are regarded as duplicates)
+- ex: raw read counts on exons (comparable to RNA-seq quantification)
+- RPKMpp: normalized promoter proximal read count (Reads per kilobase per million mapped reads)
+- eRPKMgb: normalized gene body read count (effective RPKM, RPKM of read coverage converted by count/coverage factor)
+- eRPKMex: normalized exon read count (effective RPKM)
 
 
 ## stoat make-ted
@@ -132,9 +132,9 @@ options:
 ```
 Processes raw TED-seq fastq data. Make-ted aligns TED-seq reads, generates expression and poly(A) tail length tables. Poly(A) tail lengths are determined from Library Insert Size (LIS)
 
-Input:
-* <reference genome> pre-assembled reference genome index
-* <gtf> gene annotation in gtf format.
+Input
+- \<reference genome\> pre-assembled reference genome index
+- \<gtf\> gene annotation in gtf format.
 
 ### Output
 Generates a directory structure
@@ -154,26 +154,52 @@ Generates a directory structure
   │   └── PALdata.rds
   └── sample_info.txt
 ```
-* (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
-* (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
-* (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
-* (output directory)/table/expression.txt : table of TED-seq gene expression counts (raw and normalized)
-* (output directory)/table/medianpal.txt : table of median poly(A) tail lengths 
-* (output directory)/table/palmatrix.txt : matrix of poly(A) tail length distributions
-* (output directory)/Rdata/PALdata.rds : R data object of poly(A) tail length distributions
+- (output directory)/alignment/a.bam : aligned bam file with unique molecular identifiers collapsed
+- (output directory)/alignment/a.pl.bedgraph : (+) strand bedgraph file of TED-seq raw read counts
+- (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of TED-seq raw read counts
+- (output directory)/table/expression.txt : table of TED-seq gene expression counts (raw and normalized)
+- (output directory)/table/medianpal.txt : table of median poly(A) tail lengths 
+- (output directory)/table/palmatrix.txt : matrix of poly(A) tail length distributions
+- (output directory)/Rdata/PALdata.rds : R data object of poly(A) tail length distributions
 	
 ### TED-seq expression table
 Column description of /table/expression.txt
-* id: trasncript id (ENST)
-* ted: raw read count near 3' end (-500 from PAS to PAS)
-* RPKMted: normalized TED-seq read count (Reads per kilobase per million mapped reads)
+- id: trasncript id (ENST)
+- ted: raw read count near 3' end (-500 from PAS to PAS)
+- RPKMted: normalized TED-seq read count (Reads per kilobase per million mapped reads)
 
 ### Poly(A) tail length distribution matrix
 Description of /table/palmatrix.txt
 - First column: transcript id
 - Next 501 columns: raw reads mapped to position -500 to PAS or poly(A) lengths from LIS - 500 to LIS.
-	
-  
+
+
+## stoat align-ted2
+```
+tool:    stoat align-ted2
+version: 0.1.190924
+
+usage:   stoat align-ted2 [options] -1 <read 1> -2 <read 2> -r <reference genome>
+
+options:
+         -o   output filename base (default = ted2.out)
+```
+
+
+
+## stoat make-ted2
+```
+tool:    stoat make-ted2
+version: 0.1.190924
+
+usage:   stoat make-ted2 [options] -b <bam> -g <gtf>
+
+options:
+         -o   output directory (default = tedseq.out)
+         --s  library size (default = 425 bp)
+```
+
+
 ### redef3
 ```
 tool:    stoat redef3
