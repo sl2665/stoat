@@ -246,6 +246,7 @@ Generates PRO-seq profile plots. Outputs pdf files of PRO-seq profile plots.
 
 ### Output
 Example 1. PRO-seq profiles near the TSS of listed genes in 2 datasets
+
 example/genes.txt
 ```
 IL17RA
