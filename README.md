@@ -72,7 +72,7 @@ command: make-pro   process PRO-seq data
 This is a wrapper for all stoat commands. Available commands are described below.
 
 
-### stoat make-pro
+## stoat make-pro
 ```
 tool:    stoat make-pro
 version: 0.1.191014
@@ -89,7 +89,7 @@ Other inputs
 * \<reference genome\> pre-assembled reference genome index
 * \<gtf\> gene annotation in gtf format.
 
-#### Output
+### Output
 Generates a directory structure
 ```
 (output directory)
@@ -108,7 +108,7 @@ Generates a directory structure
 * (output directory)/alignment/a.mn.bedgraph : (-) strand bedgraph file of PRO-seq raw read counts
 * (output directory)/table/expression.txt : table of PRO-seq gene expression counts (raw and normalized)
 
-#### PRO-seq expression table
+### PRO-seq expression table
 Column description of /table/expression.txt
 * id: trasncript id (ENST)
 * pp: promoter proximal raw read count (TSS to +500)
@@ -118,7 +118,7 @@ Column description of /table/expression.txt
 * eRPKMgb: normalized gene body read count (effective RPKM, RPKM of read coverage converted by count/coverage factor)
 * eRPKMex: normalized exon read count (effective RPKM)
 
-### stoat make-ted
+## stoat make-ted
 ```
 tool:    stoat make-ted
 version: 0.1.190924
@@ -135,7 +135,7 @@ Input:
 * <reference genome> pre-assembled reference genome index
 * <gtf> gene annotation in gtf format.
 
-#### Output
+### Output
 Generates a directory structure
 ```
 (output directory)/
@@ -161,15 +161,16 @@ Generates a directory structure
 * (output directory)/table/palmatrix.txt : matrix of poly(A) tail length distributions
 * (output directory)/Rdata/PALdata.rds : R data object of poly(A) tail length distributions
 	
-#### TED-seq expression table
+### TED-seq expression table
 Column description of /table/expression.txt
 * id: trasncript id (ENST)
 * ted: raw read count near 3' end (-500 from PAS to PAS)
 * RPKMted: normalized TED-seq read count (Reads per kilobase per million mapped reads)
 
-#### Poly(A) tail length distribution matrix
+### Poly(A) tail length distribution matrix
 Description of /table/palmatrix.txt
-
+* First column: transcript id
+	Next columns
 	
   
 ### redef3
