@@ -69,7 +69,7 @@ command: make-pro   process PRO-seq data
          prop       generate PRO-seq profiles
          elongHMM   calculate PRO-seq elongation rates
 ```
-This is a wrapper for all stoat commands. Available commands are described below.
+This is a wrapper for all stoat commands. Available commands are described under the headings below.
 
 
 ## stoat make-pro
@@ -118,6 +118,7 @@ Column description of /table/expression.txt
 * eRPKMgb: normalized gene body read count (effective RPKM, RPKM of read coverage converted by count/coverage factor)
 * eRPKMex: normalized exon read count (effective RPKM)
 
+
 ## stoat make-ted
 ```
 tool:    stoat make-ted
@@ -129,7 +130,7 @@ options:
          -a   aligner (STAR/BOWTIE; default = STAR)
          -o   output directory (default = tedseq.out)
 ```
-Processes raw TED-seq fastq data. Make-ted aligns TED-seq reads, generates expression and poly(A) tail length tables.
+Processes raw TED-seq fastq data. Make-ted aligns TED-seq reads, generates expression and poly(A) tail length tables. Poly(A) tail lengths are determined from Library Insert Size (LIS)
 
 Input:
 * <reference genome> pre-assembled reference genome index
@@ -169,8 +170,8 @@ Column description of /table/expression.txt
 
 ### Poly(A) tail length distribution matrix
 Description of /table/palmatrix.txt
-* First column: transcript id
-	Next columns
+- First column: transcript id
+- Next 501 columns: raw reads mapped to position -500 to PAS or poly(A) lengths from LIS - 500 to LIS.
 	
   
 ### redef3
