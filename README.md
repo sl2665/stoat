@@ -260,7 +260,7 @@ stoat prop -d example/PROseq_HEK example/PROseq_HeLa -g example/genes.txt
 
 #### Example 2. Scaled average PRO-seq profiles (metagenes) in 2 datasets
 
-Use 2 example datasets in mouse embryonic stem cell control and flavopiridol treated (Jonkers et al, 2014, eLife)
+Use 2 example datasets in mouse embryonic stem cell control and flavopiridol treated (Jonkers et al, 2014, eLife). Use the bed13 file in the annotation directory instead of gene list.
 
 Run
 ```
@@ -286,6 +286,7 @@ options:
          --os overlay TED-seq data (default = false)
          --og overlay gene groups (default = false)
 ```
+
 
 ## elongHMM
 ```
