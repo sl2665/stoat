@@ -201,7 +201,7 @@ options:
 Generates TED-seq directory structure identical to make-ted using bam file created by align-ted2 for TED2-seq data. For library size (--s), Use final library size including the full TRU-seq primer lengths (e.g. Bioanalyzer peak size).
 
 
-## redef3
+## stoat redef3
 ```
 tool:    stoat redef3
 version: 0.1.191018
@@ -213,7 +213,9 @@ options:
          -S   antisense strand bam (default = sense strand)
          -fa  reference genome fasta (default = none)
 ```
-	
+
+
+
 ## prop
 ```
 tool:    stoat prop - PRO-seq profile
