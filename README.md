@@ -245,7 +245,7 @@ options:
 Generates PRO-seq profile plots. Outputs pdf files of PRO-seq profile plots.
 
 ### Output
-Example 1. PRO-seq profiles near the TSS of listed genes in 2 datasets
+#### Example 1. PRO-seq profiles near the TSS of listed genes in 2 datasets
 
 example/genes.txt
 ```
@@ -258,6 +258,7 @@ stoat prop -d example/PROseq_HEK example/PROseq_HeLa -g example/genes.txt
 ```
 <img src="img/prop_ex1.png" alt="drawing" width="400"/>
 
+#### Example 2. Scaled average PRO-seq profiles (metagenes) in 2 datasets
 
 
 <img src="img/pro.out.jpg" alt="drawing" width="400"/>
