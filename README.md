@@ -247,7 +247,7 @@ Generates PRO-seq profile plots. Outputs pdf files of PRO-seq profile plots.
 ### Output
 #### Example 1. PRO-seq profiles near the TSS of listed genes in 2 datasets
 
-example/genes.txt
+example/genes1.txt
 ```
 IL17RA
 BCL2L13
@@ -286,6 +286,17 @@ options:
          --os overlay TED-seq data (default = false)
          --og overlay gene groups (default = false)
 ```
+### Output
+example/genes2.txt
+```
+CLU
+RPS14
+```
+Run
+```
+stoat pap -d example/TEDseq_HEK example/TEDseq_HeLa -g example/genes2.txt
+```
+<img src="img/pap_ex.png" alt="drawing" width="400"/>
 
 
 ## elongHMM
