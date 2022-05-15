@@ -89,7 +89,8 @@ Other inputs
 * \<reference genome\> pre-assembled reference genome index
 * \<gtf\> gene annotation in gtf format.
 
-Output: generates a directory structure
+#### Output
+Generates a directory structure
 ```
 (output directory)
   ├── alignment
@@ -133,7 +134,8 @@ Input:
 * <reference genome> pre-assembled reference genome index
 * <gtf> gene annotation in gtf format.
 
-Output: generates a directory structure
+#### Output
+Generates a directory structure
 ```
 (output directory)/
   ├── alignment
