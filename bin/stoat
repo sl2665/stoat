@@ -15,33 +15,29 @@ key="$1"
 shift
 
 case $key in
-	make-pro)
-	echo proseq-make.sh $*
-	;;
-	make-ted)
-	$SDIR/tedseq-make.sh $* --sdir $SDIR
-	;;
-	pap)
-	$SDIR/pap.sh $* --sdir $SDIR
-	;;
-	getqc)
-	echo stoat-getqc.sh $*
-	;;
-	ref3cps)
-	echo new3cps.sh $*
-	;;
+	make-pro) $SDIR/proseq-make.sh $* --sdir $SDIR ;;
+	make-ted) $SDIR/tedseq-make.sh $* --sdir $SDIR ;;
+	align-ted2) $SDIR/ted2-align.sh $* --sdir $SDIR ;;
+	make-ted2) $SDIR/ted2-make.sh $* --sdir $SDIR ;;
+	pap) $SDIR/pap.sh $* --sdir $SDIR ;;
+	prop) $SDIR/prop.sh $* --sdir $SDIR ;;
+	redef3) $SDIR/new3CPS.sh $* --sdir $SDIR ;;
+	elongHMM) $SDIR/elong-hmm.sh $* --sdir $SDIR ;;
 	*)
 		echo -e "" >&2
 		echo -e "stoat:   stereoscopic analysis of the transcriptome using PRO-seq and TED-seq" >&2
-		echo -e "version: 0.1.190924" >&2
+		echo -e "version: 0.2.220302" >&2
 		echo -e "" >&2
 		echo -e "usage:   stoat <command> [options]" >&2
 		echo -e "" >&2
 		echo -e "command: make-pro   process PRO-seq data" >&2
 		echo -e "         make-ted   process TED-seq data" >&2
-		echo -e "         getqc      generate quality control figures" >&2
-		echo -e "         ref3cps    redefine 3CPS in high resolution" >&2
+		echo -e "         align-ted2 align TED2 data" >&2
+		echo -e "         make-ted2  process TED2 data" >&2
+		echo -e "         redef3     redefine 3CPS in high resolution" >&2
 		echo -e "         pap        generate polyA length profiles" >&2
+		echo -e "         prop       generate PRO-seq profiles" >&2
+		echo -e "         elongHMM   calculate PRO-seq elongation rates" >&2
 		echo -e "" >&2
 	;;
 esac

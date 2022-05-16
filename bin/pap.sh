@@ -3,8 +3,8 @@
 
 if [ $# -lt 4 ]; then
 	echo -e ""
-	echo -e "tool:    stoat pap - poly(A) profile"
-	echo -e "version: 0.1.190928"
+	echo -e "tool:    stoat pap"
+	echo -e "version: 0.1.191018"
 	echo -e ""
 	echo -e "usage:   stoat pap [options] -d <TEDseq dirs> -g <gene lists txt>"
 	echo -e ""
@@ -87,19 +87,23 @@ if [ "$BED" != false ] ; then
 	fi
 	# Merge the two strands
 	cat <(paste <(cut -f1-4 _tmp/pls) <(cat _tmp/plmat)) <(paste <(cut -f1-4 _tmp/mns) <(cat _tmp/mnmat)) | \
-		sort -k1,1 -k2,2n -k3,3n | cut -f4- > _tmp/palmat
+		sort -k1,1 -k2,2n -k3,3n | cut -f4- | awk '$1' > _tmp/palmat
 	# Run R script to read palmat and ouput results
 	Rscript --vanilla --quiet $RDIR/palmat2profile.R \
-		${OF} ${WIDTH} ${HEIGHT} &> _tmp/Routput
-	rm -rf _tmp
+		${OF} ${WIDTH} ${HEIGHT} ${DSC[@]} &> _tmp/Routput
 	exit
 else
 	if [ "$GN" != false ] ; then
 	# Producing PAL from gene lists (support multiple TED-seq samples)
 		# Make TED-seq sample list
-		if [ "$DSC" == false ] ; then DSC=("${TED[@]}"); fi
-		for ((i=0;i<${#TED[@]};++i)); do
-			echo ${TED[i]},${DSC[i]} >> _tmp/sample; done
+		if [ "$DSC" == true ] ; then
+			for ((i=0;i<${#TED[@]};++i)); do
+				echo ${TED[i]},${DSC[i]} >> _tmp/sample; done
+		else
+			for ((i=0;i<${#TED[@]};++i)); do
+				awk -v d=${TED[i]} 'NR==1{print d","$2}' \
+					${TED[i]}/sample_info.txt >>_tmp/sample; done
+		fi
 		# Generate gene id list from gene annotation tables
 		for ((i=0;i<${#TED[@]};++i)); do
 			cut -f1 ${TED[i]}/table/palmatrix.expr.txt >> _tmp/expGenes
@@ -127,7 +131,7 @@ else
 		# Run Rscript with the 
 		Rscript --vanilla --quiet $RDIR/genelist2profile.R \
 			_tmp/sample ${GN} ${WIDTH} ${HEIGHT} ${OS} ${OG} ${OF} &> _tmp/Routput
-		rm -rf _tmp
 		exit
 	fi
 fi
+rm -rf _tmp

@@ -1,44 +1,39 @@
 #!/bin/bash
-# process TED-seq files to the data directory structure
+# process TED2 bam files to the data directory structure
 
 if [ $# -lt 4 ]; then
 	echo -e ""
-	echo -e "tool:    stoat make-ted"
+	echo -e "tool:    stoat make-ted2"
 	echo -e "version: 0.1.190924"
 	echo -e ""
-	echo -e "usage:   stoat make-ted [options] -f <fastq> -g <gtf> -r <reference genome>"
+	echo -e "usage:   stoat make-ted2 [options] -b <bam> -g <gtf>"
 	echo -e ""
 	echo -e "options:"
-	echo -e "         -a   aligner (STAR/BOWTIE; default = STAR)"
 	echo -e "         -o   output directory (default = tedseq.out)"
+	echo -e "         --s  library size (default = 425 bp)"
 	echo -e ""
 	exit
 fi
 
 ODIR="tedseq.out"
-ALIGNER="STAR"
-
+SIZE=425
 while [[ $# -ge 1 ]]; do
 	key="$1"
 	case $key in
-		-f)
-		FASTQ="$2"
+		-b)
+		BAM="$2"
 		shift
 		;;
 		-g)
 		GTF="$2"
 		shift
 		;;
-		-r)
-		REF="$2"
-		shift
-		;;
-		-a)
-		ALIGNER="$2"
-		shift
-		;;
 		-o)
 		ODIR="$2"
+		shift
+		;;
+		--s)
+		SIZE="$2"
 		shift
 		;;
 		--sdir)
@@ -77,9 +72,15 @@ if [ ! -d $ODIR/_tmp ]; then
 	mkdir $ODIR/_tmp
 fi
 
-# Align fastq files to bam and bedgraph files
-echo performing alignment >&2
-$SDIR/tedseq-align -f $FASTQ -r $REF -a $ALIGNER -b $ODIR/alignment/a --sdir $SDIR
+# Copy bam file
+cp $BAM $ODIR/alignment/a.bam 
+
+# Make bedgraph files
+bedtools genomecov -ibam $BAM -bg -strand + -5 \
+	> $ODIR/alignment/a.pl.bedgraph
+bedtools genomecov -ibam $BAM -bg -strand - -5 \
+	| awk '{print $1"\t"$2"\t"$3"\t"$4*-1}' \
+	> $ODIR/alignment/a.mn.bedgraph
 
 # Generate annotation
 echo generating gene annotations >&2
@@ -92,10 +93,17 @@ $SDIR/tedseq-getexpr -t $ODIR/alignment/a -g $ODIR/annotation/transcripts.bed13 
 # Make PAL matrix
 echo generating polyA length matrix >&2
 $SDIR/tedseq-makepal -a $ODIR/alignment/a.bam -b $ODIR/annotation/transcripts.bed13 \
-	--sdir $SDIR > $ODIR/table/palmatrix.txt
+	--sdir $SDIR > $ODIR/table/palmatrix_raw.txt
+
+echo processing polyA length matrix >&2
+# Process PAL matrix to remove outlier peaks
+RDIR=${SDIR%*/bin}/rscript
+Rscript --vanilla --quiet $RDIR/ted2_make.R ${ODIR}
+
 # Filter PAL matrix to expressed genes and calculate median poly A lengths
 # Covert PAL matrix to Rdata format
-$SDIR/process_palmatrix.sh $ODIR 200 250
+SPOS=$(( 500 - $SIZE + 136 ))
+$SDIR/process_palmatrix.sh $ODIR $SPOS 250
 
 # Generate 3'CPS region
 # echo annotating 3\'CPS regions >&2

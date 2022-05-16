@@ -6,6 +6,7 @@ awk -v spos=$2 -v maxl=$3 -v dir=$1 '{end=spos+maxl;if(spos+maxl>NF-1) end=NF-2;
 		print $1"\t"mlen > dir"/table/medianpal.txt";}}' \
 	${1}/table/palmatrix.txt
 
+if [ ! -d $1/_tmp ]; then mkdir $1/_tmp; fi
 Rscript --vanilla --quiet -e 'arg=commandArgs(trailingOnly=T); dir=arg[1];spos=as.numeric(arg[2]);maxl=as.numeric(arg[3]);' \
 	-e 'mat=read.table(paste0(dir,"/table/palmatrix.expr.txt"),header=F,fill=T,flush=T);' \
 	-e 'colnames(mat)=c("id",(-spos):(500-spos));' \

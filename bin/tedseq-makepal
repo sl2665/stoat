@@ -48,7 +48,7 @@ while [[ $# -ge 1 ]]; do
 done
 
 samtools view -H $BAM > _tedseq_tmp/_sam.header.tmp
-samtools view $BAM | awk '!($2 AND 16) {
+samtools view $BAM | awk '!and($2,16) {
 		if($6~/^[0-9]+S/) {
 			split($6,a,"S");
 			outfile = "_tedseq_tmp/_sam." a[1] "S.tmp";
@@ -68,7 +68,7 @@ for f in _tedseq_tmp/_sam.*S.tmp; do
 	samtools view -Sb _tedseq_tmp/_sam2.$outsuf > _tedseq_tmp/_bam.$outsuf
 done
 
-# Generate bedgraph files
+# Generate bedgraph files - this is the slowest step
 for f in _tedseq_tmp/_bam.*S.tmp; do
 	outsuf=${f#_tedseq_tmp/_bam.*}
 	bedtools genomecov -ibam _tedseq_tmp/_bam.$outsuf -bg -5 -strand + > _tedseq_tmp/_bg.pl.$outsuf
@@ -120,6 +120,10 @@ for f in _tedseq_tmp/_mat.pl.*S.tmp; do
 				for(i=NF/2-shiftBase+1;i<=NF/2;++i) printf "\t"$i; printf "\n";}' \
 			_tedseq_tmp/_mat.pl.pasted.tmp> _tedseq_tmp/_mat.pl.tmp
 	fi
+done
+
+for f in _tedseq_tmp/_mat.mn.*S.tmp; do
+	outsuf=${f#_tedseq_tmp/_mat.mn.*}
 	if [ -s _tedseq_tmp/_mat.mn.$outsuf ]; then
 		paste _tedseq_tmp/_mat.mn.tmp _tedseq_tmp/_mat.mn.$outsuf > _tedseq_tmp/_mat.mn.pasted.tmp
 		awk -v os=$outsuf 'BEGIN{split(os,suf,"S"); shiftBase=0+suf[1];}
