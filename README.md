@@ -312,7 +312,7 @@ options:
          -bc  Bin count (default = 50)
          -out Output file (default = out.elong.txt)
 ```
-Use Hidden Markov Model to detect RNAP inhibition waves for elongation speed analysis (Jonkers et al, 2014, eLife).
+Use Hidden Markov Model to detect RNAP inhibition waves for elongation speed analysis (Jonkers et al, 2014, eLife). See 
 
 ### Output
 Table of inhibition wavefront positions
@@ -329,12 +329,12 @@ stoat elongHMM -f example/mES_flavopiridol -b example/mES_baseline
 ```
 out.elong.txt
 ```
-id  len rounds  transition  density1    density2
-ENSMUST00000119292.1    22056   47  11000   0.13    0.886364
-ENSMUST00000025751.3    22093   200 11000   0.14    0.872727
-ENSMUST00000167910.1    21731   92  12000   0.15    0.933333
-ENSMUST00000154537.1    18163   69  11000   0.13    0.614286
-ENSMUST00000025835.4    51000   86  11000   0.15    0.835
+id                      len     rounds  transition  density1    density2
+ENSMUST00000119292.1    22056   47      11000       0.13        0.886364
+ENSMUST00000025751.3    22093   200     11000       0.14        0.872727
+ENSMUST00000167910.1    21731   92      12000       0.15        0.933333
+ENSMUST00000154537.1    18163   69      11000       0.13        0.614286
+ENSMUST00000025835.4    51000   86      11000       0.15        0.835
 ................
 ```
 
