@@ -226,7 +226,7 @@ Column description of /table/3cps_redef.txt
 - Second column: relative position of 3'CPS from annotated PAS.
 - Third column: raw read count at the re-annotated 3'CPS positions.
 
-## prop
+## stoat prop
 ```
 tool:    stoat prop - PRO-seq profile
 version: 0.1.191001
@@ -269,7 +269,7 @@ stoat prop -d example/mES_baseline example/mES_flavopiridol \
 ```
 <img src="img/prop_ex2.png" alt="drawing" width="400"/>
 
-## pap
+## stoat pap
 ```
 tool:    stoat pap
 version: 0.1.191018
@@ -300,7 +300,7 @@ stoat pap -d example/TEDseq_HEK example/TEDseq_HeLa -g example/genes2.txt
 <img src="img/pap_ex.png" alt="drawing" width="400"/>
 
 
-## elongHMM
+## stoat elongHMM
 ```
 tool:    stoat elongHMM
 version: 0.1.191114
