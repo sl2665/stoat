@@ -312,7 +312,7 @@ options:
          -bc  Bin count (default = 50)
          -out Output file (default = out.elong.txt)
 ```
-Use Hidden Markov Model to detect RNAP inhibition waves for elongation speed analysis (Jonkers et al, 2014, eLife). See [additional document] (https://github.com/sl2665/stoat/blob/master/doc/additional_document.pdf) for further details.
+Use Hidden Markov Model to detect RNAP inhibition waves for elongation speed analysis (Jonkers et al, 2014, eLife). See [additional document](https://github.com/sl2665/stoat/blob/master/doc/additional_document.pdf) for further details.
 
 ### Output
 Table of inhibition wavefront positions
