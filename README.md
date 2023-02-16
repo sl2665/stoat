@@ -372,4 +372,4 @@ Options:
 	
 ## How to cite <img src="img/stoat_animal.png" alt="drawing" width="100" align="left"/>
 
-Lee S.A., Kwak H. Stereoscopic Transcriptome Analysis Depicts Transcriptional and Post-transcriptional RNA Regulation
+Lee S.A., Kwak H. Stereoscopic RNA Analysis of Transcriptional and Post-transcriptional Regulation (2023, In review). 
